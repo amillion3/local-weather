@@ -1,0 +1,42 @@
+{
+    "coord": {
+        "lon": -86.39,
+        "lat": 35.75
+    },
+    "weather": [
+        {
+            "id": 800,
+            "main": "Clear",
+            "description": "clear sky",
+            "icon": "01d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 83.07,
+        "pressure": 1017,
+        "humidity": 48,
+        "temp_min": 82.4,
+        "temp_max": 84.2
+    },
+    "visibility": 16093,
+    "wind": {
+        "speed": 9.17,
+        "deg": 10
+    },
+    "clouds": {
+        "all": 1
+    },
+    "dt": 1527119580,
+    "sys": {
+        "type": 1,
+        "id": 2531,
+        "message": 0.0045,
+        "country": "US",
+        "sunrise": 1527071661,
+        "sunset": 1527123053
+    },
+    "id": 420033423,
+    "name": "Murfreesboro",
+    "cod": 200
+}
