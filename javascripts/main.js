@@ -1,1 +1,3 @@
-console.error('This works');
+const data = require('./data');
+
+data.init();
