@@ -1,4 +1,5 @@
 const dataGatekeeper = require('./dataGatekeeper');
+const weatherAPI = require('./weatherAPI');
 
 let userInput = '';
 
@@ -13,6 +14,8 @@ const validateInput = () => {
     alertErrorMessage();
   } else {
     dataGatekeeper.setZipcode(userInput);
+    // begin promise here
+    weatherAPI.setKey();
   }
 };
 const searchWindowClicked = e => {
