@@ -15,7 +15,7 @@ const validateInput = () => {
   } else {
     dataGatekeeper.setZipcode(userInput);
     // begin promise here
-    weatherAPI.setKey();
+    weatherAPI.makeAPIRequest();
   }
 };
 const searchWindowClicked = e => {
