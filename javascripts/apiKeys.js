@@ -1,24 +1,25 @@
-const retrieveKeys = () => {
-  apiKey() // call new Promise constructor func.
-    .then(results => {
-      return results.OpenWeatherMap.apiKey;
-    })
-    .catch(error => {
-      console.error(error);
-    });
-};
-
 const apiKey = () => {
   // constructor for new Promise {}
   return new Promise((resolve, reject) => {
     $.ajax('../db/apiKeys.json')
       .done(data => {
-        resolve(data.apiKeys);
+        resolve(data.apiKeys.openWeatherMap.apiKey);
       })
       .fail(error => {
         reject(error);
       });
   });
+};
+
+const retrieveKeys = () => {
+  apiKey() // call new Promise constructor func.
+    .then(results => {
+      console.error('results', results);
+      return results;
+    })
+    .catch(error => {
+      console.error(error);
+    });
 };
 
 module.exports = {

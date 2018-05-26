@@ -1,12 +1,7 @@
 const dataGK = require('./dataGatekeeper');
-const apiKeys = require('./apiKeys');
 
-let key = '';
 let zip = '';
-
-const getZipcode = () => {
-  zip = dataGK.getZipcode();
-};
+let key = '';
 
 const processAPIResponse = () => {
   makeAPIRequest()
@@ -23,7 +18,7 @@ const processAPIResponse = () => {
     })
     .catch(err => {
       console.error(err);
-    grunt});
+    });
 };
 
 const buildApiUrl = () => {
@@ -32,9 +27,8 @@ const buildApiUrl = () => {
 
 const makeAPIRequest = () => {
   zip = dataGK.getZipcode();
-  key = apiKeys.apiKey();
+  key = dataGK.getKey();
   const apiUrl = buildApiUrl();
-  // make API call promise next
   return new Promise((resolve, reject) => {
     $.ajax(apiUrl)
       .done(data => {
@@ -47,5 +41,5 @@ const makeAPIRequest = () => {
 };
 
 module.exports = {
-  makeAPIRequest,
+  processAPIResponse,
 };
