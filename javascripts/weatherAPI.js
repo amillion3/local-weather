@@ -1,4 +1,5 @@
 const dataGK = require('./dataGatekeeper');
+const dom = require('./dom');
 
 let zip = '';
 let key = '';
@@ -6,7 +7,10 @@ let key = '';
 const processAPIResponse = () => {
   makeAPIRequest()
     .then(data => {
-    // do stuff with JSON data here
+      console.error('key in right place', key);
+      dom.buildCurrentWeatherDOM(data);
+
+      // do stuff with JSON data here
     // City data.name
     // Temperature data.main.temp
     // Conditions weather.main
@@ -27,7 +31,6 @@ const buildApiUrl = () => {
 
 const makeAPIRequest = () => {
   zip = dataGK.getZipcode();
-  key = dataGK.getKey();
   const apiUrl = buildApiUrl();
   return new Promise((resolve, reject) => {
     $.ajax(apiUrl)
@@ -40,6 +43,9 @@ const makeAPIRequest = () => {
   });
 };
 
+const setKey = input => { key = input; };
+
 module.exports = {
   processAPIResponse,
+  setKey,
 };

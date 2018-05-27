@@ -1,3 +1,5 @@
+const weatherAPI = require('./weatherAPI');
+
 const apiKey = () => {
   // constructor for new Promise {}
   return new Promise((resolve, reject) => {
@@ -15,7 +17,7 @@ const retrieveKeys = () => {
   apiKey() // call new Promise constructor func.
     .then(results => {
       console.error('results', results);
-      return results;
+      weatherAPI.setKey(results);
     })
     .catch(error => {
       console.error(error);

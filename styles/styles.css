@@ -15,6 +15,22 @@ header {
   padding: 0;
 }
 
+.row {
+  margin: 0;
+  padding: 0;
+}
+
+.div-container-weather {
+  max-width: 800px;
+  padding: 25vh 0 25vh 0;
+  border: none;
+}
+
+.div-weather-background {
+/*   background-color: lightblue; */
+  background-color:rgba(255,255,0,0.5);
+}
+
 /* --------------Search Bar Styling */
 #div-search {
   margin-bottom: 10px
