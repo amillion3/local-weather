@@ -20,9 +20,8 @@ header {
   padding: 0;
 }
 
-.div-container-weather {
-  max-width: 800px;
-  padding: 25vh 0 25vh 0;
+#div-weather-container {
+  padding: 10vh 0 25vh 0;
   border: none;
 }
 
