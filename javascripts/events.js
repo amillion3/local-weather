@@ -30,7 +30,10 @@ const searchWindowClicked = e => {
 // end ---------- Gather zipcode from user
 
 const updateTemps = input => {
-  $('#temp-current').text();
+  const formattedCurrent = `${input[0]}°`;
+  const formattedMaxMin = `${input[1]}°/${input[2]}°`;
+  $('#temp-current').text(formattedCurrent);
+  $('#temp-max-min').text(formattedMaxMin);
 };
 
 const convertTemps = input => {
@@ -53,14 +56,12 @@ const convertTemps = input => {
       converted = Math.floor((((a - 32) * 1.8) * 1), 0);
     }
     convertedTemps.push(converted);
-    console.error('final', convertedTemps);
     updateTemps(convertedTemps);
   });
 };
 
 const sliderClicked = e => {
   const status = document.getElementById('slider-temp-converter').checked;
-  console.error(status);
   convertTemps(status);
 };
 

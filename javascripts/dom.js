@@ -4,13 +4,10 @@ const randomBackground = input => {
   input.toLowerCase();
   const imageCount = 2;
   const randomCount = Math.round(Math.random() * (imageCount - 1)) + 1;
-  console.error('randomCount: ', randomCount);
   const images = [];
   images.push(`${input}1.jpg`);
   images.push(`${input}2.jpg`);
   images.push(`${input}3.jpg`);
-  console.error('image array: ', images);
-  // document.getElementById("divID").style.backgroundImage = "url(" + dir + images[randomCount] + ")";
   $('body').css('background-image', `url('../images/${images[randomCount]}'`);
 };
 
