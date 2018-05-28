@@ -7,18 +7,7 @@ let key = '';
 const processAPIResponse = () => {
   makeAPIRequest()
     .then(data => {
-      console.error('key in right place', key);
       dom.buildCurrentWeatherDOM(data);
-
-      // do stuff with JSON data here
-    // City data.name
-    // Temperature data.main.temp
-    // Conditions weather.main
-    // Conditions weather.description
-    // Weather icons weather.icon
-    // Air pressure data.main.pressure
-    // Wind speed data.wind.speed
-    // An affordance to view the forecast for the current day, or the next 5 days
     })
     .catch(err => {
       console.error(err);

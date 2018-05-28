@@ -16,7 +16,6 @@ const apiKey = () => {
 const retrieveKeys = () => {
   apiKey() // call new Promise constructor func.
     .then(results => {
-      console.error('results', results);
       weatherAPI.setKey(results);
     })
     .catch(error => {
