@@ -30,32 +30,31 @@ const searchWindowClicked = e => {
 // end ---------- Gather zipcode from user
 
 const updateTemps = input => {
-  console.error(input);
+  $('#temp-current').text();
 };
 
 const convertTemps = input => {
   const originalTemps = [];
+  const convertedTemps = [];
   const tempCurrent = $('#temp-current').text();
   const tempMaxMin = ($('#temp-max-min').text()).split('/');
-  console.error(tempCurrent);
-  console.error(tempMaxMin);
   originalTemps.push(tempCurrent);
   originalTemps.push(tempMaxMin[0]);
   originalTemps.push(tempMaxMin[1]);
   originalTemps.forEach(temp => {
+    let converted = 0;
     const a = temp.slice(0, -1) * 1;
-    console.error('a ', a);
+
     if (input === true) {
       // (inputC * 9/5) + 32 === to fahrenheit
-      originalTemps.push(((a * (9 / 5)) + 32) * 1);
-      console.error('temp', temp);
+      converted = Math.floor(((a * 1.8) + 32) * 1, 0);
     } else if (input === false) {
       // (inputF - 32) * 5/9 === to celsius
-      originalTemps.push(((a - 32) * (5 / 9)) * 1);
-      console.error('temp', temp);
+      converted = Math.floor((((a - 32) * 1.8) * 1), 0);
     }
-    console.error('final', originalTemps);
-    updateTemps(originalTemps);
+    convertedTemps.push(converted);
+    console.error('final', convertedTemps);
+    updateTemps(convertedTemps);
   });
 };
 
