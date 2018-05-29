@@ -12,7 +12,7 @@ const processAPIResponse = () => {
       if (status === 'weather') {
         dom.buildCurrentWeatherDOM(data);
       } else {
-        dom.buildForecastDOM(data.list);
+        dom.buildForecastDOM(data);
       }
     })
     .catch(err => {
