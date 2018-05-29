@@ -81,8 +81,8 @@ const buildCurrentWeatherDOM = data => {
             <h5>88°/62°</h5>
           </div>
         </div>
-        <div class='row'>
-          <button class='.switch-call-type'>Forecast</button>
+        <div class='row' id='toggle-forecast-weather'>
+          <button class='switch-call-type btn-lg col-xs-offset-11'>Forecast</button>
         </div>
       </div>`;
   printToDom(output, '#div-current-weather');

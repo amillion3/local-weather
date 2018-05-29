@@ -55,6 +55,15 @@ header {
   line-height: 2.42
 }
 
+.switch-call-type {
+  border-radius: 6px;
+  padding: 5px;
+}
+
+#toggle-forecast-weather {
+  padding: 0px 10px 10px 0px;
+}
+
 /* The switch - the box around the slider */
 .switch {
   position: relative;
