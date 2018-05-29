@@ -66,9 +66,21 @@ const sliderClicked = e => {
 };
 // END convert from F to C  or  C to F
 
+const forecastWeatherToggle = e => {
+  const currentSetting = dataGatekeeper.getApiCallType();
+  if (currentSetting === 'weather') {
+    dataGatekeeper.setApiCallType('forecast');
+    console.error(dataGatekeeper.getApiCallType());
+  } else {
+    dataGatekeeper.setApiCallType('weather');
+    console.error(dataGatekeeper.getApiCallType());
+  }
+};
+
 const bindEvents = () => {
   $('#div-search').on('click keypress', searchWindowClicked);
   $(document).on('click', 'span', sliderClicked);
+  $(document).on('click', '.switch-call-type', forecastWeatherToggle);
 };
 
 module.exports = {

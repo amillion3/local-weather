@@ -1,6 +1,5 @@
 let userZipcode = '';
-// let apiCallType = 'weather';
-let apiCallType = 'forecast';
+let apiCallType = 'weather';
 
 const setZipcode = input => { userZipcode = input; };
 const getZipcode = () => userZipcode;
