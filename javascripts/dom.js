@@ -77,9 +77,26 @@ const buildCurrentWeatherDOM = data => {
   printToDom(output, '#div-current-weather');
 };
 
-const buildForecastDOM = () => {
+const parseForecastData = inputs => {
+  const dailyMatch = [];
+  inputs.forEach((input, index) => {
+    if (index % 8 === 0) {
+      dailyMatch.push(input);
+    }
+  });
+  return dailyMatch;
+};
+
+const buildForecastDOM = data => {
+  const parsedData = parseForecastData(data);
   let output = '';
-  output = '';
+  console.error(parsedData);
+  parsedData.forEach(parsed => {
+    output = `
+      <h1>${parsed.dt}</h1>`;
+    console.error(parsed.dt_txt);
+  });
+
   printToDom(output, '#div-forecasted-weather');
 };
 

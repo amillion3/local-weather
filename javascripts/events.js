@@ -29,6 +29,7 @@ const searchWindowClicked = e => {
 };
 // end ---------- Gather zipcode from user
 
+// convert from F to C  or  C to F
 const updateTemps = input => {
   const formattedCurrent = `${input[0]}°`;
   const formattedMaxMin = `${input[1]}°/${input[2]}°`;
@@ -47,9 +48,9 @@ const convertTemps = input => {
   originalTemps.forEach(temp => {
     let converted = 0;
     const a = temp.slice(0, -1) * 1;
-
     if (input === true) {
       // (inputC * 9/5) + 32 === to fahrenheit
+      // this is broken
       converted = Math.floor(((a * 1.8) + 32) * 1, 0);
     } else if (input === false) {
       // (inputF - 32) * 5/9 === to celsius
@@ -59,11 +60,11 @@ const convertTemps = input => {
     updateTemps(convertedTemps);
   });
 };
-
 const sliderClicked = e => {
   const status = document.getElementById('slider-temp-converter').checked;
   convertTemps(status);
 };
+// END convert from F to C  or  C to F
 
 const bindEvents = () => {
   $('#div-search').on('click keypress', searchWindowClicked);
