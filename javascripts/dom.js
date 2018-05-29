@@ -11,6 +11,16 @@ const randomBackground = input => {
   $('body').css('background-image', `url('../images/${images[randomCount]}'`);
 };
 
+const randomBackgroundNonWeather = () => {
+  const imageCount = 7;
+  const randomCount = Math.round(Math.random() * (imageCount - 1)) + 1;
+  const images = [];
+  for (let i = 0; i < imageCount; i++) {
+    images.push(`none${i + 1}.jpg`);
+  }
+  $('body').css('background-image', `url('../images/${images[randomCount]}'`);
+};
+
 const buildCurrentWeatherDOM = data => {
   const iconCode = data.weather[0].icon;
   const icon = domIcons.findWeatherIcon(iconCode);
@@ -152,9 +162,7 @@ const parseForecastData = inputs => {
 const buildForecastDOM = data => {
   const parsedData = parseForecastData(data.list);
   const forecastToInsert = buildForecastForInsertion(parsedData);
-  console.error('forecast to insert', forecastToInsert);
   let output = '';
-  console.error('parsed data', parsedData);
   parsedData.forEach(parsed => {
     output = `
     <div class='div-weather-background'>
@@ -177,7 +185,7 @@ const buildForecastDOM = data => {
   </div>
     `;
   });
-
+  randomBackgroundNonWeather();
   printToDom(output, '#div-forecasted-weather');
 };
 
@@ -188,4 +196,5 @@ const printToDom = (domString, divId) => {
 module.exports = {
   buildCurrentWeatherDOM,
   buildForecastDOM,
+  randomBackgroundNonWeather,
 };
