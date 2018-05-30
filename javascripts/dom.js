@@ -15,72 +15,61 @@ const randomBackgroundNonWeather = () => {
   const imageCount = 7;
   const randomCount = Math.round(Math.random() * (imageCount - 1)) + 1;
   const images = [];
-  for (let i = 0; i < imageCount; i++) {
+  for (let i = 0; i <= imageCount; i++) {
     images.push(`none${i + 1}.jpg`);
   }
   $('body').css('background-image', `url('../images/${images[randomCount]}'`);
 };
 
+const buildCurrentWeatherMiniForecast = inputs => {
+  const parsedData = parseForecastData(inputs.slice(1));
+  let output = '';
+  parsedData.forEach(input => {
+    const date = parseDate(input.dt_txt);
+    const iconCode = input.weather[0].icon;
+    const icon = domIcons.findWeatherIcon(iconCode);
+    output += `
+    <div class='col-xs-2 text-center'>
+      <h4 class='text-center'>${date}</h4>
+      <span><i class="wi ${icon.icon} icon-mini-forecast" alt='${input.weather[0].main}'></i></span>
+      <h5 class='text-center'>${Math.ceil(input.main.temp_max)}°/${Math.floor(input.main.temp_min)}°</h5>
+    </div>`;
+  });
+  return output;
+};
+
 const buildCurrentWeatherDOM = data => {
-  const iconCode = data.weather[0].icon;
+  const iconCode = data.list[0].weather[0].icon;
   const icon = domIcons.findWeatherIcon(iconCode);
+  const miniForecastToInsert = buildCurrentWeatherMiniForecast(data.list);
   randomBackground(icon.background);
   let output = '';
   output = `
       <div class='div-weather-background'>
         <div class='row'>
-          <div class='col-xs-4 text-center' id='current-weather'>
-          <div class='row' id='convert-switch'>
-            <div class='col-sm-2'><h4 class='text-right'>F</h4></div>
-            <div class='col-sm-6'>
-              <label class="switch">
-                <input id='slider-temp-converter' type="checkbox">
-                <span class="slider round"></span>
-              </label>
-            </div>
-            <div class='col-sm-2'><h4 class='text-left'>C</h4></div>
-          </div>
-
-
-            <h1 id='temp-current' class='text-center'>${Math.floor(data.main.temp)}°</h1>
-            <h3 class='text-center'>${data.weather[0].main}</h3>
-            <span><i class="wi ${icon.icon}" id='icon-current' alt='${data.weather[0].main}'></i></span>
-          </div>
-          <div class='col-xs-8 text-center' id='current-weather-additional'>
-            <h1>${data.name}</h1>
-            <h4>
-            ${Math.floor(data.wind.speed)}mph
-              <span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span>
-              <span>${Math.floor(data.main.humidity)}  <i class="wi wi-humidity" id='icon-humidity' alt='Humidity Percentage'></i></span>
-            </h4>
-          </div>
-        </div>
-        <div class='row'>
-          <div class='col-xs-2 col-xs-offset-1 text-center'>
+          <div class='col-xs-3 text-center' id='current-weather'>
+            <h1 id='temp-current' class='text-center'>${Math.floor(data.list[0].main.temp)}°</h1>
+            <h3 class='text-center'>${data.list[0].weather[0].main}</h3>
+            <span><i class="wi ${icon.icon}" id='icon-current' alt='${data.list[0].weather[0].main}'></i></span>
             <h4 class='text-center'>Today</h4>
-            <h5 id = 'temp-max-min' class='text-center'>${Math.floor(data.main.temp_max)}°/${Math.floor(data.main.temp_min)}°</h5>
+            <h5 class='text-center'>${Math.ceil(data.list[0].main.temp_max)}°/${Math.floor(data.list[0].main.temp_min)}°</h5>
           </div>
-          <div class='col-xs-2'>
-            <h4>Saturday</h4>
-            <h3>{-}</h3>
-            <h5>88°/62°</h5>
-          </div>
-          <div class='col-xs-2'>
-            <h4>Sunday</h4>
-            <h3>{-}</h3>
-            <h5>88°/62°</h5>
-          </div>
-          <div class='col-xs-2'>
-            <h4>Monday</h4>
-            <h3>{-}</h3>
-            <h5>88°/62°</h5>
-          </div>
-          <div class='col-xs-2'>
-            <h4>Tuesday</h4>
-            <h3>{-}</h3>
-            <h5>88°/62°</h5>
+          <div class='col-xs-9 text-center' id='current-weather-additional'>
+            <div class='row' id='current-weather-city'>
+              <h1><strong>${data.city.name}</strong></h1>
+              <h4>
+              ${Math.floor(data.list[0].wind.speed)} mph
+                <span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span>
+                <span>${Math.floor(data.list[0].main.humidity)}  <i class="wi wi-humidity" id='icon-humidity' alt='Humidity Percentage'></i></span>
+              </h4>
+            </div>
+            <div class='row' id='mini-forecast'>
+              <div class='col-xs-1'></div>
+              ${miniForecastToInsert}
+            </div>
           </div>
         </div>
+
         <div class='row' id='toggle-forecast-weather'>
           <button class='switch-call-type btn-lg col-xs-2 col-xs-offset-10'>Forecast</button>
         </div>
@@ -145,7 +134,7 @@ const buildForecastForInsertion = inputs => {
   <h4>${input.main.humidity}<i class="wi wi-humidity icon-humidity" alt='Humidity Percentage'></i></span></h4>
       </div>
       <div class='row'>
-  <h4>${input.wind.speed}<span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span></h4>
+  <h4>${Math.floor(input.wind.speed, 0)}<span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span></h4>
       </div>
     </div>
     `;
@@ -172,11 +161,8 @@ const buildForecastDOM = data => {
     <div class='div-weather-background'>
     <div class='row'>
       <div class='col-sm-8 col-sm-offset-2'>
-        <div class='row text-center'>
-          <h3>Murftown</h3>
-        </div>
-        <div class='row text-center'>
-          <h5>89°/77°</h5>
+        <div class='row text-center' id='forecast-city-name'>
+          <h3>${data.city.name}</h3>
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ const processAPIResponse = () => {
       const status = dataGK.getApiCallType();
       if (status === 'weather') {
         dom.buildCurrentWeatherDOM(data);
+        // dataGK.setCity(data.name);
       } else {
         dom.buildForecastDOM(data);
       }
@@ -21,12 +22,13 @@ const processAPIResponse = () => {
 };
 
 const buildApiUrl = () => {
-  const apiRequestType = dataGK.getApiCallType();
-  if (apiRequestType === 'forecast') {
-    apiUrl = `http://api.openweathermap.org/data/2.5/forecast?zip=${zip}&units=imperial&appid=${key}`;
-  } else {
-    apiUrl = `http://api.openweathermap.org/data/2.5/weather?zip=${zip}&units=imperial&appid=${key}`;
-  }
+  // const apiRequestType = dataGK.getApiCallType();
+  // if (apiRequestType === 'forecast') {
+  //   apiUrl = `http://api.openweathermap.org/data/2.5/forecast?zip=${zip}&units=imperial&appid=${key}`;
+  // } else {
+  //   apiUrl = `http://api.openweathermap.org/data/2.5/weather?zip=${zip}&units=imperial&appid=${key}`;
+  // }
+  apiUrl = `http://api.openweathermap.org/data/2.5/forecast?zip=${zip}&units=imperial&appid=${key}`;
 };
 
 const makeAPIRequest = () => {
