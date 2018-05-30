@@ -3,24 +3,41 @@
 ## This app will display weather based on a zipcode the user inputs. The zipcode and other pertinent information will be relayed to the OpenWeatherMap API. The returned data will be formatted and displayed on the screen for the user to see. The user can see today's weather or switch to a 5-day forecast.
 
 ## Technology
-
-## Screenshots
 - HTML5
 - CSS3/Bootstrap
 - JavaScript/ES6/jQuery
 - Node.JS/Browserify/Grunt
 
-![alt text](URL)
+## Screenshots
+
+Here is the page upon load. The background image is 1 of 7 random images that can appear. When the user presses the 'Go!' button, the input is validated, it must be a 5-digit numeric value.
+
+![Page upon load](https://raw.githubusercontent.com/amillion3/local-weather/master/images/screenshots/on-load.png)
 ___
 
-Text here
+Here, the app has rejected this input because it contained the letter `g`.
 
-![alt text](URL)
+![Bad zip](https://raw.githubusercontent.com/amillion3/local-weather/master/images/screenshots/bad-zip.png)
 ___
 
-Text here
+Here are a few examples of the weather in 3 different locales. The background image matches the type of weather that day (clear, cloudy, rainy, misty, or snowy) and is randomly chosen.
 
-![alt text](URL)
+![Weather in Nashville](https://raw.githubusercontent.com/amillion3/local-weather/master/images/screenshots/current-nashville.png)
+___
+
+![Weather in St. Louis](https://raw.githubusercontent.com/amillion3/local-weather/master/images/screenshots/current-st-louis.png)
+___
+
+![Weather in Fort Collins](https://raw.githubusercontent.com/amillion3/local-weather/master/images/screenshots/current-fort-collins.png)
+___
+
+
+If the user clicks the `Forecast` button, the app will remove the current weather and switch to a more detailed forecast view.
+
+![Forecast in Chattanooga](https://raw.githubusercontent.com/amillion3/local-weather/master/images/screenshots/forecast-chattanooga.png)
+___
+
+![Forecast in Fairbanks](https://raw.githubusercontent.com/amillion3/local-weather/master/images/screenshots/forecast-fairbanks.png)
 ___
 ## Running The Project
 1. Clone down this repo and CD into project.
