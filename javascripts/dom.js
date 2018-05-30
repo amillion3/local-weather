@@ -82,9 +82,10 @@ const buildCurrentWeatherDOM = data => {
           </div>
         </div>
         <div class='row' id='toggle-forecast-weather'>
-          <button class='switch-call-type btn-lg col-xs-offset-11'>Forecast</button>
+          <button class='switch-call-type btn-lg col-xs-2 col-xs-offset-10'>Forecast</button>
         </div>
       </div>`;
+  printToDom('', '#div-forecasted-weather');
   printToDom(output, '#div-current-weather');
 };
 
@@ -141,7 +142,7 @@ const buildForecastForInsertion = inputs => {
         <h4>${Math.floor(input.main.temp_max, 0)}°/${Math.floor(input.main.temp_min, 0)}°</h4>
       </div>
       <div class='row'>
-  <h4>${input.main.humidity}<i class="wi wi-humidity" id='icon-humidity' alt='Humidity Percentage'></i></span></h4>
+  <h4>${input.main.humidity}<i class="wi wi-humidity icon-humidity" alt='Humidity Percentage'></i></span></h4>
       </div>
       <div class='row'>
   <h4>${input.wind.speed}<span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span></h4>
@@ -185,10 +186,14 @@ const buildForecastDOM = data => {
       <!-- append to '#div-forecasted' -->
       ${forecastToInsert}
     </div>
+    <div class='row' id='toggle-forecast-weather'>
+      <button class='switch-call-type btn-lg col-xs-2 col-xs-offset-10'>Current</button>
+    </div>
   </div>
     `;
   });
   randomBackgroundNonWeather();
+  printToDom('', '#div-current-weather');
   printToDom(output, '#div-forecasted-weather');
 };
 

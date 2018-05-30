@@ -71,9 +71,11 @@ const forecastWeatherToggle = e => {
   if (currentSetting === 'weather') {
     dataGatekeeper.setApiCallType('forecast');
     console.error(dataGatekeeper.getApiCallType());
+    weatherAPI.processAPIResponse();
   } else {
     dataGatekeeper.setApiCallType('weather');
     console.error(dataGatekeeper.getApiCallType());
+    weatherAPI.processAPIResponse();
   }
 };
 

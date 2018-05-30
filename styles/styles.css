@@ -46,6 +46,14 @@ header {
   font-size: 48px;
 }
 
+.icon-forecast {
+  font-size: 48px;
+}
+
+.icon-humidity {
+  font-size: 20px;
+}
+
 #icon-wind,
 #icon-humidity {
   font-size: 24px;
