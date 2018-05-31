@@ -144,6 +144,10 @@ const buildForecastForInsertion = inputs => {
       <div class='row'>
   <h4>${Math.floor(input.wind.speed, 0)}<span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span></h4>
       </div>
+      <div class='row weather-buttons'>
+        <span class='glyphicon glyphicon-floppy-disk span-blue' aria-hidden="true"></span>
+        <span class='glyphicon glyphicon-exclamation-sign span-red' aria-hidden="true"></span>
+      </div>
     </div>
     `;
   });
