@@ -22,12 +22,6 @@ const processAPIResponse = () => {
 };
 
 const buildApiUrl = () => {
-  // const apiRequestType = dataGK.getApiCallType();
-  // if (apiRequestType === 'forecast') {
-  //   apiUrl = `http://api.openweathermap.org/data/2.5/forecast?zip=${zip}&units=imperial&appid=${key}`;
-  // } else {
-  //   apiUrl = `http://api.openweathermap.org/data/2.5/weather?zip=${zip}&units=imperial&appid=${key}`;
-  // }
   apiUrl = `http://api.openweathermap.org/data/2.5/forecast?zip=${zip}&units=imperial&appid=${key}`;
 };
 
