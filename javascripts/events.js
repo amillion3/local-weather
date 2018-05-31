@@ -1,5 +1,6 @@
 const dataGatekeeper = require('./dataGatekeeper');
 const weatherAPI = require('./weatherAPI');
+const firebaseAPI = require('./firebaseAPI');
 
 let userInput = '';
 
@@ -40,10 +41,35 @@ const forecastWeatherToggle = e => {
   }
 };
 
+const saveButtonClicked = () => {
+  $(document).on('click', '.save-weather', e => {
+    // DOM is cleared, not the action I want
+    const weatherEventToAddCard = $(e.target).closest('.container-weather-current');
+    console.error(weatherEventToAddCard);
+    const weatherEventToAdd = {
+      city: weatherEventToAddCard.find('.weather-city').text(), // works
+      conditions: weatherEventToAddCard.find('.weather-conditions').text(),
+      tempCurrent: weatherEventToAddCard.find('.weather-current').text(),
+      tempHigh: weatherEventToAddCard.find('.weather-high').text(),
+      tempLow: weatherEventToAddCard.find('.weather-low').text(),
+      humidity: weatherEventToAddCard.find('.weather-humidity').text(),
+      windSpeed: weatherEventToAddCard.find('.weather-wind').text(),
+      isScarry: false,
+    };
+    firebaseAPI.saveNewWeatherRecord(weatherEventToAdd)
+      .then(() => {
+        weatherEventToAddCard.remove();
+      })
+      .catch(err => {
+        console.error('Error saving weather record', err);
+      });
+  });
+};
+
 const bindEvents = () => {
   $('#div-search').on('click keypress', searchWindowClicked);
-
   $(document).on('click', '.switch-call-type', forecastWeatherToggle);
+  saveButtonClicked();
 };
 
 module.exports = {

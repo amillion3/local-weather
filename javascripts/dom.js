@@ -46,22 +46,30 @@ const buildCurrentWeatherDOM = data => {
   let output = '';
   output = `
       <div class='div-weather-background'>
-        <div class='row'>
-          <div class='col-xs-3 text-center' id='current-weather'>
-            <h1 id='temp-current' class='text-center'>${Math.floor(data.list[0].main.temp)}°</h1>
-            <h3 class='text-center'>${data.list[0].weather[0].main}</h3>
+        <div class='row container-weather-current'>
+          <div class='col-xs-3 text-center' id='current-weather' data-weather-id='${data.list[0].dt}'>
+            <h1 id='temp-current' class='text-center weather-current'>${Math.floor(data.list[0].main.temp)}</h1>
+            <h3 class='text-center weather-conditions'>${data.list[0].weather[0].main}</h3>
             <span><i class="wi ${icon.icon}" id='icon-current' alt='${data.list[0].weather[0].main}'></i></span>
             <h4 class='text-center'>Today</h4>
-            <h5 class='text-center'>${Math.ceil(data.list[0].main.temp_max)}°/${Math.floor(data.list[0].main.temp_min)}°</h5>
+            <div>
+              <h5 class='text-center weather-high'>${Math.ceil(data.list[0].main.temp_max)}</h5>
+              <h5 class='text-center'>°/</h5>
+              <h5 class='text-center weather-low'>${Math.floor(data.list[0].main.temp_min)}</h5>
+              <h5 class='text-center'>°</h5>
+            </div>
           </div>
           <div class='col-xs-9 text-center' id='current-weather-additional'>
             <div class='row' id='current-weather-city'>
-              <h1><strong>${data.city.name}</strong></h1>
-              <h4>
-              ${Math.floor(data.list[0].wind.speed)} mph
-                <span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span>
-                <span>${Math.floor(data.list[0].main.humidity)}  <i class="wi wi-humidity" id='icon-humidity' alt='Humidity Percentage'></i></span>
-              </h4>
+              <h1 class='weather-city'><strong>${data.city.name}</strong></h1>
+              <div class='row'>
+              <span><h4 class='weather-wind'>${Math.floor(data.list[0].wind.speed)}</h4>
+                <h4> mph</h4><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span>
+              <span><h4 class='weather-humidity'>${Math.floor(data.list[0].main.humidity)}</h4><i class="wi wi-humidity" id='icon-humidity' alt='Humidity Percentage'></i></span>
+                </h4>
+              </div>
+
+              <button class='save-weather'>Save this!</button>
             </div>
             <div class='row' id='mini-forecast'>
               <div class='col-xs-1'></div>
