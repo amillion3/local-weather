@@ -81,3 +81,21 @@ header {
   border-bottom: 1px solid black;
   margin-bottom: 25px;
 }
+
+.glyphicon {
+  font-size: 24px;
+}
+.span-blue {
+  color: #0074D9;
+}
+.span-red {
+  color: #FF4136;
+}
+.inline {
+  display: inline;
+}
+
+/* table header size */
+.th-size {
+  font-size: 18px;
+}
