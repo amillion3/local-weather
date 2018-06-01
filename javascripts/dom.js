@@ -88,7 +88,9 @@ const buildCurrentWeatherDOM = data => {
           <button class='switch-call-type btn-lg col-xs-2 col-xs-offset-10'>Forecast</button>
         </div>
       </div>`;
+  printToDom('', '#div-current-weather');
   printToDom('', '#div-forecasted-weather');
+  // printToDom('', '#div-dashboard');
   printToDom(output, '#div-current-weather');
 };
 
@@ -197,12 +199,59 @@ const buildForecastDOM = data => {
   });
   randomBackgroundNonWeather();
   printToDom('', '#div-current-weather');
+  printToDom('', '#div-forecasted-weather');
+  // printToDom('', '#div-dashboard');
   printToDom(output, '#div-forecasted-weather');
+};
+
+const buildDashboardRows = data => {
+  console.error('build rows ', data);
+  console.error(data[0].city);
+  let output = '';
+  data.forEach(row => {
+    output += `
+    <tr>
+      <td>${row.city}</td>
+      <td>${row.dtText}</td>
+      <td>${row.tempCurrent}</td>
+      <td>${row.conditions}</td>
+      <td>${row.humidity}</td>
+      <td>${row.windSpeed}</td>
+      <td class='text-center'>
+        <span class='glyphicon glyphicon-trash span-red' aria-hidden="true"></span>
+      </td>
+  </tr>`;
+  });
+  return output;
 };
 
 const buildDashboardDOM = data => {
   console.error('dom.js dashboard', data);
-
+  const output = `
+  <div class='div-weather-background'>
+    <div class = 'row col-xs-12 text-center' id='dashboard-title'>
+    <h2><em>Your</em> dashboard</h2>
+    </div>
+    <div class ='row col-xs-12'>
+      <table class="table table-striped">
+        <tr class='header'>
+          <th class='th-size'>Location</th>
+          <th class='th-size'>Date</th>
+          <th class='th-size'>Current Temperature</th>
+          <th class='th-size'>Condition</th>
+          <th class='th-size'>Humidity</th>
+          <th class='th-size'>Wind Speed</th>
+          <th class='th-size'>Delete</th>
+        </tr>
+        ${buildDashboardRows(data)}
+      </table>
+    </div>
+  </div>`;
+  randomBackgroundNonWeather();
+  printToDom('', '#div-current-weather');
+  printToDom('', '#div-forecasted-weather');
+  printToDom('', '#div-dashboard');
+  printToDom(output, '#div-dashboard');
 };
 
 const printToDom = (domString, divId) => {
