@@ -3,7 +3,6 @@ let firebaseConfig = '';
 
 const setFirebaseConfig = a => {
   firebaseConfig = a;
-  console.error('firebaseconfig', firebaseConfig);
 };
 
 const getKey = input => firebaseAPIKey;
@@ -25,7 +24,27 @@ const saveNewWeatherRecord = weatherEvent => {
   });
 };
 
-const readExistingWeatherRecord = existingWeather => {};
+const readExistingWeatherRecord = () => {
+  return new Promise((resolve, reject) => {
+    const weatherEventsArray = [];
+    $.ajax({
+      method: 'GET',
+      url: `${firebaseConfig.databaseURL}/weather.json`,
+    })
+      .done(fbResponseWeatherEvents => {
+        if (fbResponseWeatherEvents !== null) {
+          Object.keys(fbResponseWeatherEvents).forEach(fbKey => {
+            fbResponseWeatherEvents[fbKey].id = fbKey;
+            weatherEventsArray.push(fbResponseWeatherEvents[fbKey]);
+          });
+        }
+        resolve(weatherEventsArray);
+      })
+      .fail(err => {
+        reject(err);
+      });
+  });
+};
 
 const updateExistingWeatherRecord = existingWeather => {};
 

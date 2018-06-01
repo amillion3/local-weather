@@ -1,6 +1,7 @@
 const dataGatekeeper = require('./dataGatekeeper');
 const weatherAPI = require('./weatherAPI');
 const firebaseAPI = require('./firebaseAPI');
+const dom = require('./dom');
 
 let userInput = '';
 
@@ -41,13 +42,17 @@ const forecastWeatherToggle = e => {
   }
 };
 
+const successWeatherAdd = () => {
+  alert('This forecast has been saved.');
+};
+
 const saveButtonClicked = () => {
-  $(document).on('click', '.save-weather', e => {
+  $(document).on('click', '.glyphicon-floppy-disk', e => {
     // DOM is cleared, not the action I want
     const weatherEventToAddCard = $(e.target).closest('.container-weather-current');
-    console.error(weatherEventToAddCard);
     const weatherEventToAdd = {
-      city: weatherEventToAddCard.find('.weather-city').text(), // works
+      dtText: weatherEventToAddCard.find('.data-id').data('id'),
+      city: weatherEventToAddCard.find('.weather-city').text(),
       conditions: weatherEventToAddCard.find('.weather-conditions').text(),
       tempCurrent: weatherEventToAddCard.find('.weather-current').text(),
       tempHigh: weatherEventToAddCard.find('.weather-high').text(),
@@ -58,10 +63,35 @@ const saveButtonClicked = () => {
     };
     firebaseAPI.saveNewWeatherRecord(weatherEventToAdd)
       .then(() => {
-        weatherEventToAddCard.remove();
+        // weatherEventToAddCard.remove();
+        successWeatherAdd();
       })
       .catch(err => {
         console.error('Error saving weather record', err);
+      });
+  });
+};
+
+const deleteButtonClicked = () => {
+  $(document).on('click', '.glyphicon-exclamation-sign', e => {
+    // TO DO
+
+  });
+};
+
+const dashboardViewClicked = () => {
+  // clears DOM
+  dom.printToDom('', '#div-forecasted-weather');
+  dom.printToDom('', '#div-current-weather');
+
+  $(document).on('click', '#test-saved', e => {
+    // TO DO
+    firebaseAPI.readExistingWeatherRecord()
+      .then(weatherArray => {
+        dom.buildDashboardDOM(weatherArray);
+      })
+      .catch(err => {
+        console.error('Error in retrieving weather records');
       });
   });
 };
@@ -70,6 +100,8 @@ const bindEvents = () => {
   $('#div-search').on('click keypress', searchWindowClicked);
   $(document).on('click', '.switch-call-type', forecastWeatherToggle);
   saveButtonClicked();
+  deleteButtonClicked();
+  dashboardViewClicked();
 };
 
 module.exports = {

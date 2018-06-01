@@ -21,6 +21,7 @@ const randomBackgroundNonWeather = () => {
   $('body').css('background-image', `url('../images/${images[randomCount]}'`);
 };
 
+// Build CURRENT weather DOM string
 const buildCurrentWeatherMiniForecast = inputs => {
   const parsedData = parseForecastData(inputs.slice(1));
   let output = '';
@@ -47,29 +48,34 @@ const buildCurrentWeatherDOM = data => {
   output = `
       <div class='div-weather-background'>
         <div class='row container-weather-current'>
-          <div class='col-xs-3 text-center' id='current-weather' data-weather-id='${data.list[0].dt}'>
+          <div class='col-xs-3 text-center data-id' id='current-weather' data-id='${data.list[0].dt}'>
             <h1 id='temp-current' class='text-center weather-current'>${Math.floor(data.list[0].main.temp)}</h1>
             <h3 class='text-center weather-conditions'>${data.list[0].weather[0].main}</h3>
             <span><i class="wi ${icon.icon}" id='icon-current' alt='${data.list[0].weather[0].main}'></i></span>
             <h4 class='text-center'>Today</h4>
             <div>
-              <h5 class='text-center weather-high'>${Math.ceil(data.list[0].main.temp_max)}</h5>
-              <h5 class='text-center'>°/</h5>
-              <h5 class='text-center weather-low'>${Math.floor(data.list[0].main.temp_min)}</h5>
-              <h5 class='text-center'>°</h5>
+              <h5 class='text-center weather-high inline'>${Math.ceil(data.list[0].main.temp_max)}</h5>
+              <h5 class='text-center inline'>°/</h5>
+              <h5 class='text-center weather-low inline'>${Math.floor(data.list[0].main.temp_min)}</h5>
+              <h5 class='text-center inline'>°</h5>
             </div>
           </div>
           <div class='col-xs-9 text-center' id='current-weather-additional'>
             <div class='row' id='current-weather-city'>
               <h1 class='weather-city'><strong>${data.city.name}</strong></h1>
               <div class='row'>
-              <span><h4 class='weather-wind'>${Math.floor(data.list[0].wind.speed)}</h4>
-                <h4> mph</h4><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span>
-              <span><h4 class='weather-humidity'>${Math.floor(data.list[0].main.humidity)}</h4><i class="wi wi-humidity" id='icon-humidity' alt='Humidity Percentage'></i></span>
+                <span class='inline'>
+                  <h4 class='weather-wind inline'>${Math.floor(data.list[0].wind.speed)}</h4>
+                  <h4 class='inline'> mph</h4><i class="wi wi-strong-wind inline" id='icon-wind' alt='Wind speed'></i>
+                </span>
+                <span class='inline'>
+                  <h4 class='weather-humidity inline'>${Math.floor(data.list[0].main.humidity)}</h4><i class="wi wi-humidity inline" id='icon-humidity' alt='Humidity Percentage'></i></span>
                 </h4>
               </div>
-
-              <button class='save-weather'>Save this!</button>
+              <div class='row weather-buttons text-right'>
+                <span class='glyphicon glyphicon-floppy-disk span-blue' aria-hidden="true"></span>
+                <span class='glyphicon glyphicon-exclamation-sign span-red' aria-hidden="true"></span>
+              </div>
             </div>
             <div class='row' id='mini-forecast'>
               <div class='col-xs-1'></div>
@@ -117,7 +123,7 @@ const parseDate = input => {
   return `${month} ${input.substr(3)}`;
 };
 
-// Build forecast DOM string
+// Build FORECAST weather DOM string
 const buildForecastForInsertion = inputs => {
   let output = '';
   inputs.forEach(input => {
@@ -125,7 +131,7 @@ const buildForecastForInsertion = inputs => {
     const iconCode = input.weather[0].icon;
     const icon = domIcons.findWeatherIcon(iconCode);
     output += `
-    <div class='col-xs-2 text-center'>
+    <div class='col-xs-2 text-center data-id' data-id=${input.dt_txt}>
       <div class='row'>
         <h4>${date}</h4>
       </div>
@@ -181,7 +187,6 @@ const buildForecastDOM = data => {
     <div class='row' id='div-forecasted'>
       <div class='col-xs-1'>
       </div>
-      <!-- append to '#div-forecasted' -->
       ${forecastToInsert}
     </div>
     <div class='row' id='toggle-forecast-weather'>
@@ -195,12 +200,19 @@ const buildForecastDOM = data => {
   printToDom(output, '#div-forecasted-weather');
 };
 
+const buildDashboardDOM = data => {
+  console.error('dom.js dashboard', data);
+
+};
+
 const printToDom = (domString, divId) => {
   $(divId).html(domString);
 };
 
 module.exports = {
+  randomBackgroundNonWeather,
   buildCurrentWeatherDOM,
   buildForecastDOM,
-  randomBackgroundNonWeather,
+  buildDashboardDOM,
+  printToDom,
 };

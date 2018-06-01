@@ -11,7 +11,6 @@ const processAPIResponse = () => {
       const status = dataGK.getApiCallType();
       if (status === 'weather') {
         dom.buildCurrentWeatherDOM(data);
-        // dataGK.setCity(data.name);
       } else {
         dom.buildForecastDOM(data);
       }
