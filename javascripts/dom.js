@@ -128,6 +128,7 @@ const parseDate = input => {
 // Build FORECAST weather DOM string
 const buildForecastForInsertion = inputs => {
   let output = '';
+  console.error(inputs);
   inputs.forEach(input => {
     const date = parseDate(input.dt_txt);
     const iconCode = input.weather[0].icon;
@@ -205,12 +206,10 @@ const buildForecastDOM = data => {
 };
 
 const buildDashboardRows = data => {
-  console.error('build rows ', data);
-  console.error(data[0].city);
   let output = '';
   data.forEach(row => {
     output += `
-    <tr>
+    <tr id=${row.id}>
       <td>${row.city}</td>
       <td>${row.dtText}</td>
       <td>${row.tempCurrent}</td>
@@ -226,7 +225,6 @@ const buildDashboardRows = data => {
 };
 
 const buildDashboardDOM = data => {
-  console.error('dom.js dashboard', data);
   const output = `
   <div class='div-weather-background'>
     <div class = 'row col-xs-12 text-center' id='dashboard-title'>

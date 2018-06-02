@@ -73,9 +73,10 @@ const saveButtonClicked = () => {
 };
 
 const deleteButtonClicked = () => {
-  $(document).on('click', '.glyphicon-exclamation-sign', e => {
+  $(document).on('click', '.glyphicon-trash', e => {
     // TO DO
-
+    const firebaseTr = $(e.target).closest('tr');
+    const firebaseId = firebaseTr[0].id;
   });
 };
 
