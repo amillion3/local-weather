@@ -95,9 +95,7 @@ const deleteButtonClicked = () => {
 };
 
 const dashboardViewClicked = () => {
-  dom.printToDom('', '#div-current-weather');
-  dom.printToDom('', '#div-forecasted-weather');
-  // dom.printToDom('', '#div-dashboard');
+  dom.clearDivs();
 
   $(document).on('click', '#test-saved', e => {
     // TO DO

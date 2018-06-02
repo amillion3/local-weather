@@ -1,5 +1,11 @@
 const domIcons = require('./domIcons');
 
+const clearDivs = () => {
+  printToDom('', '#div-current-weather');
+  printToDom('', '#div-forecasted-weather');
+  printToDom('', '#div-dashboard');
+};
+
 const randomBackground = input => {
   input.toLowerCase();
   const imageCount = 2;
@@ -40,6 +46,7 @@ const buildCurrentWeatherMiniForecast = inputs => {
 };
 
 const buildCurrentWeatherDOM = data => {
+  clearDivs();
   const iconCode = data.list[0].weather[0].icon;
   const icon = domIcons.findWeatherIcon(iconCode);
   const miniForecastToInsert = buildCurrentWeatherMiniForecast(data.list);
@@ -63,7 +70,7 @@ const buildCurrentWeatherDOM = data => {
           <div class='col-xs-9 text-center' id='current-weather-additional'>
             <div class='row' id='current-weather-city'>
               <h1 class='weather-city'><strong>${data.city.name}</strong></h1>
-              <div class='row'>
+              <div class='row current-wind-humidity'>
                 <span class='inline'>
                   <h4 class='weather-wind inline'>${Math.floor(data.list[0].wind.speed)}</h4>
                   <h4 class='inline'> mph</h4><i class="wi wi-strong-wind inline" id='icon-wind' alt='Wind speed'></i>
@@ -173,6 +180,7 @@ const parseForecastData = inputs => {
 };
 
 const buildForecastDOM = data => {
+  clearDivs();
   const parsedData = parseForecastData(data.list);
   const forecastToInsert = buildForecastForInsertion(parsedData, data.city.name);
   let output = '';
@@ -204,6 +212,7 @@ const buildForecastDOM = data => {
   printToDom(output, '#div-forecasted-weather');
 };
 
+// DASHBOARD DOM
 const buildDashboardRows = data => {
   let output = '';
   data.forEach(row => {
@@ -224,6 +233,7 @@ const buildDashboardRows = data => {
 };
 
 const buildDashboardDOM = data => {
+
   const output = `
   <div class='div-weather-background'>
     <div class = 'row col-xs-12 text-center' id='dashboard-title'>
@@ -250,7 +260,7 @@ const buildDashboardDOM = data => {
   printToDom('', '#div-dashboard');
   printToDom(output, '#div-dashboard');
 };
-
+// end DASHBOARD DOM
 const printToDom = (domString, divId) => {
   $(divId).html(domString);
 };
@@ -261,4 +271,5 @@ module.exports = {
   buildForecastDOM,
   buildDashboardDOM,
   printToDom,
+  clearDivs,
 };
