@@ -5,7 +5,6 @@
       "conditions" : "sunny",
       "humidity" : "67",
       "isScarry" : false,
-      "tempCurrent" : "78",
       "tempHigh" : "82",
       "tempLow" : "68",
       "windSpeed" : "6"

@@ -214,6 +214,7 @@ const buildDashboardRows = data => {
       <td>${row.conditions}</td>
       <td>${row.humidity}</td>
       <td>${row.windSpeed}</td>
+      <td>${row.isScarry}</td>
       <td class='text-center'>
         <span class='glyphicon glyphicon-trash span-red' aria-hidden="true"></span>
       </td>
@@ -236,6 +237,7 @@ const buildDashboardDOM = data => {
           <th class='th-size'>Condition</th>
           <th class='th-size'>Humidity</th>
           <th class='th-size'>Wind Speed</th>
+          <th class='th-size'>Scary?</th>
           <th class='th-size'>Delete</th>
         </tr>
         ${buildDashboardRows(data)}
