@@ -77,7 +77,15 @@ const deleteButtonClicked = () => {
     // TO DO
     const firebaseTr = $(e.target).closest('tr');
     const firebaseId = firebaseTr[0].id;
+    firebaseAPI.deleteWeatherRecord(firebaseId)
+      .then(() => {
+        $(`#${firebaseId}`).remove();
+      })
+      .catch(err => {
+        console.error('Error removing weather record, ', err);
+      });
   });
+
 };
 
 const dashboardViewClicked = () => {

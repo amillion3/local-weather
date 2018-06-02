@@ -46,9 +46,20 @@ const readExistingWeatherRecord = () => {
   });
 };
 
-const updateExistingWeatherRecord = existingWeather => {};
+const deleteWeatherRecord = itemToDelete => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      method: 'DELETE',
+      url: `${firebaseConfig.databaseURL}/weather/${itemToDelete}.json`,
+    })
+      .then(thisWillBeNull => {
+        resolve(thisWillBeNull);
+      })
+      .catch(err => reject(err));
+  });
+};
 
-const deleteWeatherRecord = itemToDelete => {};
+const updateExistingWeatherRecord = existingWeather => {};
 
 module.exports = {
   getKey,
