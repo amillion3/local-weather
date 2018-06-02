@@ -1,0 +1,45 @@
+{
+  "weather" : {
+    "weather0" : {
+      "city" : "Nashville",
+      "conditions" : "sunny",
+      "humidity" : "67",
+      "isScarry" : false,
+      "tempCurrent" : "78",
+      "tempHigh" : "82",
+      "tempLow" : "68",
+      "windSpeed" : "6"
+    },
+    "weather1" : {
+      "city" : "Nashville",
+      "conditions" : "cloudy",
+      "humidity" : "55",
+      "isScarry" : true,
+      "tempCurrent" : "66",
+      "tempHigh" : "66",
+      "tempLow" : "32",
+      "windSpeed" : "88"
+    },
+    "weather2" : {
+      "city" : "Nashville",
+      "conditions" : "rain",
+      "humidity" : "87",
+      "isScarry" : true,
+      "tempCurrent" : "99",
+      "tempHigh" : "99",
+      "tempLow" : "94",
+      "windSpeed" : "1"
+    },
+    "weather3" : {
+      "city" : "Nashville",
+      "conditions" : "mist",
+      "humidity" : "5",
+      "isScarry" : true,
+      "tempCurrent" : "66",
+      "tempHigh" : "78",
+      "tempLow" : "32",
+      "windSpeed" : "16"
+    },
+
+  }
+}

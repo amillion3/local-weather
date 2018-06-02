@@ -72,10 +72,6 @@ const buildCurrentWeatherDOM = data => {
                   <h4 class='weather-humidity inline'>${Math.floor(data.list[0].main.humidity)}</h4><i class="wi wi-humidity inline" id='icon-humidity' alt='Humidity Percentage'></i></span>
                 </h4>
               </div>
-              <div class='row weather-buttons text-right'>
-                <span class='glyphicon glyphicon-floppy-disk span-blue' aria-hidden="true"></span>
-                <span class='glyphicon glyphicon-exclamation-sign span-red' aria-hidden="true"></span>
-              </div>
             </div>
             <div class='row' id='mini-forecast'>
               <div class='col-xs-1'></div>
@@ -126,32 +122,35 @@ const parseDate = input => {
 };
 
 // Build FORECAST weather DOM string
-const buildForecastForInsertion = inputs => {
+const buildForecastForInsertion = (inputs, city) => {
   let output = '';
-  console.error(inputs);
   inputs.forEach(input => {
+    console.error('input', input);
     const date = parseDate(input.dt_txt);
     const iconCode = input.weather[0].icon;
     const icon = domIcons.findWeatherIcon(iconCode);
     output += `
-    <div class='col-xs-2 text-center data-id' data-id=${input.dt_txt}>
+    <div class='col-xs-2 text-center data-id forecast' data-id='${input.dt}'>
       <div class='row'>
-        <h4>${date}</h4>
+        <h1 class='hide weather-city'>${city}</h1>
+        <h4 class='weather-date'>${date}</h4>
       </div>
       <div class='row'>
         <span><i class="wi ${icon.icon} icon-forecast" alt='$'></i></span>
       </div>
       <div class='row'>
-        <h4>${input.weather[0].main}</h4>
+        <h4 class='weather-conditions'>${input.weather[0].main}</h4>
       </div>
       <div class='row'>
-        <h4>${Math.floor(input.main.temp_max, 0)}°/${Math.floor(input.main.temp_min, 0)}°</h4>
+        <h4 class='weather-max inline'>${Math.floor(input.main.temp_max, 0)}</h4>
+        <h4 class='inline'>°/</h4>
+        <h4 class='weather-min inline'>${Math.floor(input.main.temp_min, 0)}°</h4>
       </div>
       <div class='row'>
-  <h4>${input.main.humidity}<i class="wi wi-humidity icon-humidity" alt='Humidity Percentage'></i></span></h4>
+  <h4 class='weather-humidity'>${input.main.humidity}<i class="wi wi-humidity icon-humidity" alt='Humidity Percentage'></i></span></h4>
       </div>
       <div class='row'>
-  <h4>${Math.floor(input.wind.speed, 0)}<span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span></h4>
+  <h4 class='weather-wind'>${Math.floor(input.wind.speed, 0)}<span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span></h4>
       </div>
       <div class='row weather-buttons'>
         <span class='glyphicon glyphicon-floppy-disk span-blue' aria-hidden="true"></span>
@@ -175,7 +174,7 @@ const parseForecastData = inputs => {
 
 const buildForecastDOM = data => {
   const parsedData = parseForecastData(data.list);
-  const forecastToInsert = buildForecastForInsertion(parsedData);
+  const forecastToInsert = buildForecastForInsertion(parsedData, data.city.name);
   let output = '';
   parsedData.forEach(parsed => {
     output = `
@@ -183,11 +182,11 @@ const buildForecastDOM = data => {
     <div class='row'>
       <div class='col-sm-8 col-sm-offset-2'>
         <div class='row text-center' id='forecast-city-name'>
-          <h3>${data.city.name}</h3>
+          <h3 class='weather-city'>${data.city.name}</h3>
         </div>
       </div>
     </div>
-    <div class='row' id='div-forecasted'>
+    <div class='row container-weather-current' id='div-forecasted'>
       <div class='col-xs-1'>
       </div>
       ${forecastToInsert}
@@ -212,7 +211,6 @@ const buildDashboardRows = data => {
     <tr id=${row.id}>
       <td>${row.city}</td>
       <td>${row.dtText}</td>
-      <td>${row.tempCurrent}</td>
       <td>${row.conditions}</td>
       <td>${row.humidity}</td>
       <td>${row.windSpeed}</td>
@@ -235,7 +233,6 @@ const buildDashboardDOM = data => {
         <tr class='header'>
           <th class='th-size'>Location</th>
           <th class='th-size'>Date</th>
-          <th class='th-size'>Current Temperature</th>
           <th class='th-size'>Condition</th>
           <th class='th-size'>Humidity</th>
           <th class='th-size'>Wind Speed</th>

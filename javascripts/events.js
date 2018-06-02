@@ -49,18 +49,19 @@ const successWeatherAdd = () => {
 const saveButtonClicked = () => {
   $(document).on('click', '.glyphicon-floppy-disk', e => {
     // DOM is cleared, not the action I want
-    const weatherEventToAddCard = $(e.target).closest('.container-weather-current');
+    const weatherEventToAddCard = $(e.target).closest('.forecast');
+    console.error('WEATHER CARD', weatherEventToAddCard);
     const weatherEventToAdd = {
-      dtText: weatherEventToAddCard.find('.data-id').data('id'),
+      dtText: weatherEventToAddCard.find('.weather-date').text(),
       city: weatherEventToAddCard.find('.weather-city').text(),
       conditions: weatherEventToAddCard.find('.weather-conditions').text(),
-      tempCurrent: weatherEventToAddCard.find('.weather-current').text(),
       tempHigh: weatherEventToAddCard.find('.weather-high').text(),
       tempLow: weatherEventToAddCard.find('.weather-low').text(),
       humidity: weatherEventToAddCard.find('.weather-humidity').text(),
       windSpeed: weatherEventToAddCard.find('.weather-wind').text(),
       isScarry: false,
     };
+    console.error('weatherEventToAdd:', weatherEventToAdd);
     firebaseAPI.saveNewWeatherRecord(weatherEventToAdd)
       .then(() => {
         // weatherEventToAddCard.remove();
