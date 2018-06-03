@@ -76,7 +76,7 @@ const buildCurrentWeatherDOM = data => {
                   <h4 class='inline'> mph</h4><i class="wi wi-strong-wind inline" id='icon-wind' alt='Wind speed'></i>
                 </span>
                 <span class='inline'>
-                  <h4 class='weather-humidity inline'>${Math.floor(data.list[0].main.humidity)}</h4><i class="wi wi-humidity inline" id='icon-humidity' alt='Humidity Percentage'></i></span>
+                  <h4 class='weather-humidity inline'>${Math.floor(data.list[0].main.humidity)} </h4><i class="wi wi-humidity inline" id='icon-humidity' alt='Humidity Percentage'></i></span>
                 </h4>
               </div>
             </div>
@@ -237,9 +237,9 @@ const buildDashboardDOM = data => {
   const output = `
   <div class='div-weather-background'>
     <div class = 'row col-xs-12 text-center' id='dashboard-title'>
-    <h2><em>Your</em> dashboard</h2>
+      <h2><em>Your</em> dashboard</h2>
     </div>
-    <div class ='row col-xs-12'>
+    <div class ='row col-xs-12 div-weather-background'>
       <table class="table table-striped">
         <tr class='header'>
           <th class='th-size'>Location</th>
