@@ -30,7 +30,7 @@ header {
 
 .div-weather-background {
 /*   background-color: lightblue; */
-  background-color:rgba(255,255,255,0.4);
+  background-color:rgba(255,255,255,0.4) !important;
 }
 
 /* --------------Search Bar Styling */
@@ -98,4 +98,13 @@ header {
 /* table header size */
 .th-size {
   font-size: 18px;
+}
+
+.button-saved {
+  margin-top: 8px;
+  border-radius: 6px;
+}
+
+.current-wind-humidity {
+  padding-bottom: 15px;
 }

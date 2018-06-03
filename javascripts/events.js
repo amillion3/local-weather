@@ -8,6 +8,11 @@ let userInput = '';
 // -------------------- Gather zipcode from user
 const alertErrorMessage = () => {
   alert('Please enter a valid, 5-digit zipcode.');
+  // TO DO SNACKBAR
+  // https://codepen.io/Muhammad_Adil93/pen/rLaLqB
+  // <div id='snackbar'>
+
+  // </div>
 };
 const validateInput = () => {
   if (userInput.length < 5 || userInput.length > 5) {
@@ -90,9 +95,7 @@ const deleteButtonClicked = () => {
 };
 
 const dashboardViewClicked = () => {
-  dom.printToDom('', '#div-current-weather');
-  dom.printToDom('', '#div-forecasted-weather');
-  // dom.printToDom('', '#div-dashboard');
+  dom.clearDivs();
 
   $(document).on('click', '#test-saved', e => {
     // TO DO
