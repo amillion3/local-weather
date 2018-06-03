@@ -44,7 +44,6 @@ const buildCurrentWeatherMiniForecast = inputs => {
   });
   return output;
 };
-
 const buildCurrentWeatherDOM = data => {
   clearDivs();
   const iconCode = data.list[0].weather[0].icon;
@@ -96,7 +95,6 @@ const buildCurrentWeatherDOM = data => {
   // printToDom('', '#div-dashboard');
   printToDom(output, '#div-current-weather');
 };
-
 const parseDate = input => {
   input = input.slice(5,10);
   let month = '';
@@ -127,6 +125,7 @@ const parseDate = input => {
   }
   return `${month} ${input.substr(3)}`;
 };
+// end Build CURRENT weather DOM string
 
 // Build FORECAST weather DOM string
 const buildForecastForInsertion = (inputs, city) => {
@@ -168,7 +167,6 @@ const buildForecastForInsertion = (inputs, city) => {
   });
   return output;
 };
-
 const parseForecastData = inputs => {
   const dailyMatch = [];
   inputs.forEach((input, index) => {
@@ -178,7 +176,6 @@ const parseForecastData = inputs => {
   });
   return dailyMatch;
 };
-
 const buildForecastDOM = data => {
   clearDivs();
   const parsedData = parseForecastData(data.list);
@@ -211,6 +208,7 @@ const buildForecastDOM = data => {
   // printToDom('', '#div-dashboard');
   printToDom(output, '#div-forecasted-weather');
 };
+// end Build FORECAST weather DOM string
 
 // DASHBOARD DOM
 const buildDashboardRows = data => {
@@ -218,24 +216,26 @@ const buildDashboardRows = data => {
   data.forEach(row => {
     output += `
     <tr id=${row.id}>
-      <td>${row.city}</td>
-      <td>${row.dtText}</td>
-      <td>${row.conditions}</td>
-      <td>${row.humidity}</td>
-      <td>${row.windSpeed}</td>
-      <td>${row.isScarry}</td>
+      <td class='city'>${row.city}</td>
+      <td class='date'>${row.dtText}</td>
+      <td class='conditions'>${row.conditions}</td>
+      <td class='tempHigh'>${row.tempHigh}</td>
+      <td class='tempLow'>${row.tempLow}</td>
+      <td class='humidity'>${row.humidity}</td>
+      <td class='wind'>${row.windSpeed}</td>
+      <td class='scary'>
+        ${row.isScarry} <span class='glyphicon glyphicon-transfer span-red scary' aria-hidden="true"></span>
+      </td>
       <td class='text-center'>
-        <span class='glyphicon glyphicon-trash span-red' aria-hidden="true"></span>
+        <span class='glyphicon glyphicon-trash span-red trash' aria-hidden="true"></span>
       </td>
   </tr>`;
   });
   return output;
 };
-
 const buildDashboardDOM = data => {
-
   const output = `
-  <div class='div-weather-background'>
+  <div class=''>
     <div class = 'row col-xs-12 text-center' id='dashboard-title'>
       <h2><em>Your</em> dashboard</h2>
     </div>
@@ -245,6 +245,8 @@ const buildDashboardDOM = data => {
           <th class='th-size'>Location</th>
           <th class='th-size'>Date</th>
           <th class='th-size'>Condition</th>
+          <th class='th-size'>High</th>
+          <th class='th-size'>Low</th>
           <th class='th-size'>Humidity</th>
           <th class='th-size'>Wind Speed</th>
           <th class='th-size'>Scary?</th>

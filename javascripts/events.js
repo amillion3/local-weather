@@ -96,7 +96,6 @@ const deleteButtonClicked = () => {
 
 const dashboardViewClicked = () => {
   dom.clearDivs();
-
   $(document).on('click', '#test-saved', e => {
     // TO DO
     firebaseAPI.readExistingWeatherRecord()
@@ -109,12 +108,40 @@ const dashboardViewClicked = () => {
   });
 };
 
+const scaryUpdateClicked = () => {
+  $(document).on('click', '.glyphicon-transfer', e => {
+    const firebaseId = $(e.target).closest('tr').attr('id');
+    console.error('clicked');
+    console.error(firebaseId);
+    const weatherEventElement = $(e.target).closest('tr');
+    const updatedObject = {
+      dtText: weatherEventElement.find('.date'),
+      city: weatherEventElement.find('.city'),
+      conditions: weatherEventElement.find('.conditions'),
+      tempHigh: weatherEventElement.find('.tempHigh'),
+      tempLow: weatherEventElement.find('.tempLow'),
+      humidity: weatherEventElement.find('.humidity'),
+      windSpeed: weatherEventElement.find('.wind'),
+      isScarry: !(weatherEventElement.find('.scary')),
+    };
+    console.error('updatedobject  ', updatedObject);
+    firebaseAPI.updateExistingWeatherRecord(updatedObject, firebaseId)
+      .then(() => {
+        // reprint/update DOM from firebase
+      })
+      .catch(err => {
+        console.error('Error updating database record', err);
+      });
+  });
+};
+
 const bindEvents = () => {
   $('#div-search').on('click keypress', searchWindowClicked);
   $(document).on('click', '.switch-call-type', forecastWeatherToggle);
   saveButtonClicked();
   deleteButtonClicked();
   dashboardViewClicked();
+  scaryUpdateClicked();
 };
 
 module.exports = {
