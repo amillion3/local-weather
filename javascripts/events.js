@@ -60,8 +60,8 @@ const saveButtonClicked = () => {
       dtText: weatherEventToAddCard.find('.weather-date').text(),
       city: weatherEventToAddCard.find('.weather-city').text(),
       conditions: weatherEventToAddCard.find('.weather-conditions').text(),
-      tempHigh: weatherEventToAddCard.find('.weather-high').text(),
-      tempLow: weatherEventToAddCard.find('.weather-low').text(),
+      tempHigh: weatherEventToAddCard.find('.weather-max').text(),
+      tempLow: weatherEventToAddCard.find('.weather-min').text(),
       humidity: weatherEventToAddCard.find('.weather-humidity').text(),
       windSpeed: weatherEventToAddCard.find('.weather-wind').text(),
       isScarry: false,
@@ -114,15 +114,21 @@ const scaryUpdateClicked = () => {
     console.error('clicked');
     console.error(firebaseId);
     const weatherEventElement = $(e.target).closest('tr');
+    const tempHigh = weatherEventElement.find('.tempHigh').text();
+    const tempLow = weatherEventElement.find('.tempLow').text();
+    const humidity = weatherEventElement.find('.humidity').text();
+    const windSpeed = weatherEventElement.find('.wind').text();
+    const scary = weatherEventElement.find('.scary').text();
+    // switch scary and trim extra characters
     const updatedObject = {
-      dtText: weatherEventElement.find('.date'),
-      city: weatherEventElement.find('.city'),
-      conditions: weatherEventElement.find('.conditions'),
-      tempHigh: weatherEventElement.find('.tempHigh'),
-      tempLow: weatherEventElement.find('.tempLow'),
-      humidity: weatherEventElement.find('.humidity'),
-      windSpeed: weatherEventElement.find('.wind'),
-      isScarry: !(weatherEventElement.find('.scary')),
+      dtText: weatherEventElement.find('.date').text(),
+      city: weatherEventElement.find('.city').text(),
+      conditions: weatherEventElement.find('.conditions').text(),
+      tempHigh: tempHigh,
+      tempLow: tempLow,
+      humidity: humidity,
+      windSpeed: windSpeed,
+      isScarry: weatherEventElement.find('.scary').text(),
     };
     console.error('updatedobject  ', updatedObject);
     firebaseAPI.updateExistingWeatherRecord(updatedObject, firebaseId)

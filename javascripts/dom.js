@@ -219,10 +219,10 @@ const buildDashboardRows = data => {
       <td class='city'>${row.city}</td>
       <td class='date'>${row.dtText}</td>
       <td class='conditions'>${row.conditions}</td>
-      <td class='tempHigh'>${row.tempHigh}</td>
-      <td class='tempLow'>${row.tempLow}</td>
-      <td class='humidity'>${row.humidity}</td>
-      <td class='wind'>${row.windSpeed}</td>
+      <td class='tempHigh'>${row.tempHigh}°</td>
+      <td class='tempLow'>${row.tempLow}°</td>
+      <td class='humidity'>${row.humidity}%</td>
+      <td class='wind'>${row.windSpeed} mph</td>
       <td class='scary'>
         ${row.isScarry} <span class='glyphicon glyphicon-transfer span-red scary' aria-hidden="true"></span>
       </td>
