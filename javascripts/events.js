@@ -114,11 +114,18 @@ const scaryUpdateClicked = () => {
     console.error('clicked');
     console.error(firebaseId);
     const weatherEventElement = $(e.target).closest('tr');
-    const tempHigh = weatherEventElement.find('.tempHigh').text();
-    const tempLow = weatherEventElement.find('.tempLow').text();
-    const humidity = weatherEventElement.find('.humidity').text();
-    const windSpeed = weatherEventElement.find('.wind').text();
-    const scary = weatherEventElement.find('.scary').text();
+    let tempHigh = weatherEventElement.find('.tempHigh').text();
+    let tempLow = weatherEventElement.find('.tempLow').text();
+    let humidity = weatherEventElement.find('.humidity').text();
+    let windSpeed = weatherEventElement.find('.wind').text();
+    let scary = weatherEventElement.find('.scary').text();
+    // remove non-numeric and switch scary
+    tempHigh = tempHigh.replace(/\D/g,'');
+    tempLow = tempLow.replace(/\D/g,'');
+    humidity = humidity.replace(/\D/g,'');
+    windSpeed = windSpeed.replace(/\D/g,'');
+    scary = true;
+    console.error(scary);
     // switch scary and trim extra characters
     const updatedObject = {
       dtText: weatherEventElement.find('.date').text(),
@@ -128,7 +135,7 @@ const scaryUpdateClicked = () => {
       tempLow: tempLow,
       humidity: humidity,
       windSpeed: windSpeed,
-      isScarry: weatherEventElement.find('.scary').text(),
+      isScarry: scary,
     };
     console.error('updatedobject  ', updatedObject);
     firebaseAPI.updateExistingWeatherRecord(updatedObject, firebaseId)
