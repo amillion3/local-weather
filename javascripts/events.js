@@ -108,11 +108,22 @@ const dashboardViewClicked = () => {
   });
 };
 
+const switchScary = input => {
+  let output = '';
+  console.error('before switch', input);
+  if (typeof(input) === 'string') {
+    output = true;
+    console.error('TO TRUE', output);
+  } else {
+    output = !input;
+    console.error('ELSE', output);
+  }
+  return output;
+};
+
 const scaryUpdateClicked = () => {
   $(document).on('click', '.glyphicon-transfer', e => {
     const firebaseId = $(e.target).closest('tr').attr('id');
-    console.error('clicked');
-    console.error(firebaseId);
     const weatherEventElement = $(e.target).closest('tr');
     let tempHigh = weatherEventElement.find('.tempHigh').text();
     let tempLow = weatherEventElement.find('.tempLow').text();
@@ -124,9 +135,8 @@ const scaryUpdateClicked = () => {
     tempLow = tempLow.replace(/\D/g,'');
     humidity = humidity.replace(/\D/g,'');
     windSpeed = windSpeed.replace(/\D/g,'');
-    scary = true;
-    console.error(scary);
-    // switch scary and trim extra characters
+    scary = switchScary(scary);
+
     const updatedObject = {
       dtText: weatherEventElement.find('.date').text(),
       city: weatherEventElement.find('.city').text(),
@@ -141,6 +151,7 @@ const scaryUpdateClicked = () => {
     firebaseAPI.updateExistingWeatherRecord(updatedObject, firebaseId)
       .then(() => {
         // reprint/update DOM from firebase
+        dashboardViewClicked();
       })
       .catch(err => {
         console.error('Error updating database record', err);
