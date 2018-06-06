@@ -111,11 +111,13 @@ const dashboardViewClicked = () => {
 const switchScary = input => {
   let output = '';
   console.error('before switch', input);
-  if (typeof(input) === 'string') {
-    output = true;
+  console.error('typeof', typeof(input));
+  if (input === 'true' || input === true) {
+    output = false;
     console.error('TO TRUE', output);
   } else {
-    output = !input;
+    output = true;
+    console.error(input);
     console.error('ELSE', output);
   }
   return output;
@@ -138,19 +140,20 @@ const scaryUpdateClicked = () => {
     scary = switchScary(scary);
 
     const updatedObject = {
-      dtText: weatherEventElement.find('.date').text(),
-      city: weatherEventElement.find('.city').text(),
-      conditions: weatherEventElement.find('.conditions').text(),
-      tempHigh: tempHigh,
-      tempLow: tempLow,
-      humidity: humidity,
-      windSpeed: windSpeed,
-      isScarry: scary,
+      'dtText': weatherEventElement.find('.date').text(),
+      'city': weatherEventElement.find('.city').text(),
+      'conditions': weatherEventElement.find('.conditions').text(),
+      'tempHigh': tempHigh,
+      'tempLow': tempLow,
+      'humidity': humidity,
+      'windSpeed': windSpeed,
+      'isScarry': scary,
     };
     console.error('updatedobject  ', updatedObject);
     firebaseAPI.updateExistingWeatherRecord(updatedObject, firebaseId)
       .then(() => {
         // reprint/update DOM from firebase
+        console.error('updatedObject .then()');
         dashboardViewClicked();
       })
       .catch(err => {
