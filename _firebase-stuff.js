@@ -5,7 +5,7 @@
 // https://firebase.google.com/docs/auth/web/manage-users
 
 // CREATE USER/PW COMBO
-firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+firebase.auth().createUserWithEmailAndPassword(email, password).catch(error => {
   // Handle Errors here.
   const errorCode = error.code;
   const errorMessage = error.message;
@@ -13,7 +13,7 @@ firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(e
 });
 
 // SIGN IN
-firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+firebase.auth().signInWithEmailAndPassword(email, password).catch(error => {
   // Handle Errors here.
   const errorCode = error.code;
   const errorMessage = error.message;
@@ -21,7 +21,7 @@ firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error
 });
 
 // AUTH STATE CHANGE
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(user => {
   if (user) {
     // User is signed in.
   } else {
@@ -30,7 +30,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 // SIGN OUT SUCCESS
-firebase.auth().signOut().then(function() {
+firebase.auth().signOut().then(() => {
   // Sign-out successful.
 }).catch(function(error) {
   // An error happened.

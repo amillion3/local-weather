@@ -163,15 +163,27 @@ const scaryUpdateClicked = () => {
 };
 
 const authEvents = () => {
+  // switch to register form
   $('#register-link').click(() => {
     $('#div-auth-login').addClass('hide');
     $('#div-auth-register').removeClass('hide');
   });
-
+  // switch to login form
   $('#login-link').click(() => {
     $('#div-auth-login').removeClass('hide');
     $('#div-auth-register').addClass('hide');
   });
+  // user signs in
+  $('#userLoginButton').click(e => {
+    e.preventDefault();
+    const userEmail = $('#userEmail').val();
+    const userPassword = $('#userPassword').val();
+    firebase.auth().signInWithEmailAndPassword(userEmail, userPassword).catch(error => {
+      console.error(error.message);
+    });
+  });
+
+
 };
 
 const bindEvents = () => {
