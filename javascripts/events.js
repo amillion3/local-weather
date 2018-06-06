@@ -60,8 +60,8 @@ const saveButtonClicked = () => {
       dtText: weatherEventToAddCard.find('.weather-date').text(),
       city: weatherEventToAddCard.find('.weather-city').text(),
       conditions: weatherEventToAddCard.find('.weather-conditions').text(),
-      tempHigh: weatherEventToAddCard.find('.weather-high').text(),
-      tempLow: weatherEventToAddCard.find('.weather-low').text(),
+      tempHigh: weatherEventToAddCard.find('.weather-max').text(),
+      tempLow: weatherEventToAddCard.find('.weather-min').text(),
       humidity: weatherEventToAddCard.find('.weather-humidity').text(),
       windSpeed: weatherEventToAddCard.find('.weather-wind').text(),
       isScarry: false,
@@ -96,7 +96,6 @@ const deleteButtonClicked = () => {
 
 const dashboardViewClicked = () => {
   dom.clearDivs();
-
   $(document).on('click', '#test-saved', e => {
     // TO DO
     firebaseAPI.readExistingWeatherRecord()
@@ -109,12 +108,67 @@ const dashboardViewClicked = () => {
   });
 };
 
+const switchScary = input => {
+  let output = '';
+  console.error('before switch', input);
+  console.error('typeof', typeof(input));
+  if (input === 'true' || input === true) {
+    output = false;
+    console.error('TO TRUE', output);
+  } else {
+    output = true;
+    console.error(input);
+    console.error('ELSE', output);
+  }
+  return output;
+};
+
+const scaryUpdateClicked = () => {
+  $(document).on('click', '.glyphicon-transfer', e => {
+    const firebaseId = $(e.target).closest('tr').attr('id');
+    const weatherEventElement = $(e.target).closest('tr');
+    let tempHigh = weatherEventElement.find('.tempHigh').text();
+    let tempLow = weatherEventElement.find('.tempLow').text();
+    let humidity = weatherEventElement.find('.humidity').text();
+    let windSpeed = weatherEventElement.find('.wind').text();
+    let scary = weatherEventElement.find('.scary').text();
+    // remove non-numeric and switch scary
+    tempHigh = tempHigh.replace(/\D/g,'');
+    tempLow = tempLow.replace(/\D/g,'');
+    humidity = humidity.replace(/\D/g,'');
+    windSpeed = windSpeed.replace(/\D/g,'');
+    scary = switchScary(scary);
+
+    const updatedObject = {
+      'dtText': weatherEventElement.find('.date').text(),
+      'city': weatherEventElement.find('.city').text(),
+      'conditions': weatherEventElement.find('.conditions').text(),
+      'tempHigh': tempHigh,
+      'tempLow': tempLow,
+      'humidity': humidity,
+      'windSpeed': windSpeed,
+      'isScarry': scary,
+    };
+    console.error('updatedobject  ', updatedObject);
+    firebaseAPI.updateExistingWeatherRecord(updatedObject, firebaseId)
+      .then(() => {
+        // reprint/update DOM from firebase
+        console.error('updatedObject .then()');
+        dashboardViewClicked();
+      })
+      .catch(err => {
+        console.error('Error updating database record', err);
+      });
+  });
+};
+
 const bindEvents = () => {
   $('#div-search').on('click keypress', searchWindowClicked);
   $(document).on('click', '.switch-call-type', forecastWeatherToggle);
   saveButtonClicked();
   deleteButtonClicked();
   dashboardViewClicked();
+  scaryUpdateClicked();
 };
 
 module.exports = {

@@ -108,3 +108,8 @@ header {
 .current-wind-humidity {
   padding-bottom: 15px;
 }
+
+.scary,
+.trash {
+  font-size: 20px;
+}
