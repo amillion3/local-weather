@@ -162,6 +162,18 @@ const scaryUpdateClicked = () => {
   });
 };
 
+const authEvents = () => {
+  $('#register-link').click(() => {
+    $('#div-auth-login').addClass('hide');
+    $('#div-auth-register').removeClass('hide');
+  });
+
+  $('#login-link').click(() => {
+    $('#div-auth-login').removeClass('hide');
+    $('#div-auth-register').addClass('hide');
+  });
+};
+
 const bindEvents = () => {
   $('#div-search').on('click keypress', searchWindowClicked);
   $(document).on('click', '.switch-call-type', forecastWeatherToggle);
@@ -169,6 +181,7 @@ const bindEvents = () => {
   deleteButtonClicked();
   dashboardViewClicked();
   scaryUpdateClicked();
+  authEvents();
 };
 
 module.exports = {
