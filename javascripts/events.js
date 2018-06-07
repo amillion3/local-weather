@@ -4,6 +4,7 @@ const firebaseAPI = require('./firebaseAPI');
 const dom = require('./dom');
 
 let userInput = '';
+const uid = '';
 
 // -------------------- Gather zipcode from user
 const alertErrorMessage = () => {
@@ -178,12 +179,15 @@ const authEvents = () => {
     e.preventDefault();
     const userEmail = $('#userEmail').val();
     const userPassword = $('#userPassword').val();
-    firebase.auth().signInWithEmailAndPassword(userEmail, userPassword).catch(error => {
-      console.error(error.message);
-    });
+    firebase.auth().signInWithEmailAndPassword(userEmail, userPassword)
+      .then(() => {
+        console.error(uid);
+      })
+      .catch(error => {
+        console.error('error signing in');
+        console.error(error.message);
+      });
   });
-
-
 };
 
 const bindEvents = () => {
