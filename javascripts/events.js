@@ -183,7 +183,7 @@ const authEvents = () => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch(function (error) {
         // Handle Errors here.
-        console.error(error);
+        console.error(error.message);
         // ...
       });
   });
