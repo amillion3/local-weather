@@ -27,11 +27,12 @@ const validateInput = () => {
   }
 };
 const searchWindowClicked = e => {
-  if (e.target.type === 'button') {
-    userInput = $('.form-control').val();
+  console.error(e);
+  if (e.target.id === 'search-zip') {
+    userInput = $('.zip').val();
     validateInput();
   } else if (e.charCode === 13) {
-    userInput = $('.form-control').val();
+    userInput = $('.zip').val();
     validateInput();
   }
 };
@@ -177,6 +178,18 @@ const authEvents = () => {
   // user signs in
   $('#userLoginButton').click(e => {
     e.preventDefault();
+    const email = $('#userEmail').val();
+    const password = $('#userPassword').val();
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .catch(function (error) {
+        // Handle Errors here.
+        console.error(error);
+        // ...
+      });
+  });
+
+  $('#userLoginButton').click(e => {
+    e.preventDefault();
     const userEmail = $('#userEmail').val();
     const userPassword = $('#userPassword').val();
     firebase.auth().signInWithEmailAndPassword(userEmail, userPassword)
@@ -187,6 +200,23 @@ const authEvents = () => {
         console.error('error signing in');
         console.error(error.message);
       });
+  });
+  // user registers
+  $('#userRegisterButton').click(e => {
+    e.preventDefault();
+    const email = $('#registerEmail').val();
+    const pass = $('#registerPassword').val();
+    firebase.auth().createUserWithEmailAndPassword(email, pass).catch((error) => {
+      console.error('error registering');
+      console.error(error.message);
+    });
+  });
+  $('#logout').click(() => {
+    firebase.auth().signOut().then(() => {
+    }).catch((error) => {
+      // An error happened.
+      console.error(error);
+    });
   });
 };
 

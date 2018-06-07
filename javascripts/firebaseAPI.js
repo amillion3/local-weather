@@ -1,8 +1,14 @@
 let firebaseAPIKey = '';
 let firebaseConfig = '';
+let uid = '';
 
 const setFirebaseConfig = a => {
   firebaseConfig = a;
+};
+
+const setUID = newUID => {
+  uid = newUID;
+  console.error(uid);
 };
 
 const getKey = input => firebaseAPIKey;
@@ -83,4 +89,5 @@ module.exports = {
   readExistingWeatherRecord,
   updateExistingWeatherRecord,
   deleteWeatherRecord,
+  setUID,
 };
