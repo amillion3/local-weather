@@ -27,6 +27,16 @@ const randomBackgroundNonWeather = () => {
   $('body').css('background-image', `url('../images/${images[randomCount]}'`);
 };
 
+const randomBackgroundLogin = () => {
+  const imageCount = 7;
+  const randomCount = Math.round(Math.random() * (imageCount - 1)) + 1;
+  const images = [];
+  for (let i = 0; i <= imageCount; i++) {
+    images.push(`login${i + 1}.jpg`);
+  }
+  $('body').css('background-image', `url('../images/${images[randomCount]}'`);
+};
+
 // Build CURRENT weather DOM string
 const buildCurrentWeatherMiniForecast = inputs => {
   const parsedData = parseForecastData(inputs.slice(1));
@@ -55,7 +65,7 @@ const buildCurrentWeatherDOM = data => {
       <div class='div-weather-background'>
         <div class='row container-weather-current'>
           <div class='col-xs-3 text-center data-id' id='current-weather' data-id='${data.list[0].dt}'>
-            <h1 id='temp-current' class='text-center weather-current'>${Math.floor(data.list[0].main.temp)}</h1>
+            <h1 id='temp-current' class='text-center weather-current'>${Math.floor(data.list[0].main.temp)}°</h1>
             <h3 class='text-center weather-conditions'>${data.list[0].weather[0].main}</h3>
             <span><i class="wi ${icon.icon}" id='icon-current' alt='${data.list[0].weather[0].main}'></i></span>
             <h4 class='text-center'>Today</h4>
@@ -150,17 +160,20 @@ const buildForecastForInsertion = (inputs, city) => {
       <div class='row'>
         <h4 class='weather-max inline'>${Math.floor(input.main.temp_max, 0)}</h4>
         <h4 class='inline'>°/</h4>
-        <h4 class='weather-min inline'>${Math.floor(input.main.temp_min, 0)}°</h4>
+        <h4 class='weather-min inline'>${Math.floor(input.main.temp_min, 0)}</h4>
+        <h4 class='inline'>°</h4>
       </div>
       <div class='row'>
   <h4 class='weather-humidity'>${input.main.humidity}<i class="wi wi-humidity icon-humidity" alt='Humidity Percentage'></i></span></h4>
       </div>
       <div class='row'>
-  <h4 class='weather-wind'>${Math.floor(input.wind.speed, 0)}<span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span></h4>
+        <h4 class='weather-wind inline'>${Math.floor(input.wind.speed, 0)}</h4>
+        <h6 class='inline'>mph </h6>
+        <span><i class="wi wi-strong-wind inline" id='icon-wind' alt='Wind speed'></i></span>
+
       </div>
       <div class='row weather-buttons'>
         <span class='glyphicon glyphicon-floppy-disk span-blue' aria-hidden="true"></span>
-        <span class='glyphicon glyphicon-exclamation-sign span-red' aria-hidden="true"></span>
       </div>
     </div>
     `;
@@ -273,5 +286,6 @@ module.exports = {
   buildForecastDOM,
   buildDashboardDOM,
   printToDom,
+  randomBackgroundLogin,
   clearDivs,
 };

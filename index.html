@@ -14,13 +14,26 @@
 <body>
   <div class='container-fluid'>
     <header id='header'>
-      <h1 class='text-center'><em>Your</em> Local Weather</h1>
+      <div class='row'>
+        <div class='col-sm-8 col-sm-offset-2'>
+          <h1 class='text-center'><em>Your</em> Local Weather</h1>
+        </div>
+        <div class='col-sm-2 hide ' id='header-buttons'>
+          <div class='row text-right'>
+            <button id='test-saved' class='btn-primary button-saved text-right'>Dashboard</button>
+          </div>
+          <div class='row text-right'>
+            <button id='logout' class='btn-info button-saved text-right'>Logout</button>
+          </div>
+        </div>
+      </div>
     </header>
     <!-- ----------------------------------End `header` #header -->
     <div id='div-weather-container' class='row'>
+
       <div id='div-auth' class='col-sm-offset-2 col-sm-8'>
 
-        <div id='div-auth-register' class='col-sm-6 col-sm-offset-3'>
+        <div id='div-auth-register' class='col-sm-6 col-sm-offset-3 div-weather-background hide'>
           <h2 class='text-center'>Register</h2>
           <form class="form-horizontal">
             <div class="form-group">
@@ -49,7 +62,7 @@
             </div>  <!-- end 'button/login/register' -->
           </form>
         </div>  <!-- end 'div-auth-register' -->
-        <div id='div-auth-login' class='col-sm-6 col-sm-offset-3 hide'>
+        <div id='div-auth-login' class='col-sm-6 col-sm-offset-3 div-weather-background'>
           <h2 class='text-center'>Log in</h2>
           <form class="form-horizontal">
             <div class="form-group">
@@ -81,28 +94,29 @@
 
       </div>  <!-- end 'div-auth' -->
       <div id='div-current-weather' class='col-sm-offset-2 col-sm-8'></div>
+
       <div id='div-forecasted-weather' class='col-sm-offset-2 col-sm-8'></div>
+
       <div id='div-dashboard' class='col-sm-offset-2 col-sm-8'></div>
-      <div class ='row' id='div-search'>
+
+      <div id='div-search' class ='row hide'>
         <div class="col-sm-4 col-sm-offset-4 navbar-fixed-bottom">
 
           <div class="input-group input-group-lg">
-            <input type="text" class="form-control" placeholder="" value="37127">
-            <!-- <input type="text" class="form-control" placeholder="Enter Your Zipcode..."> -->
+            <input type="text" class="form-control zip" placeholder="" value="37127">
+            <!-- <input type="text" class="form-control zip" placeholder="Enter Your Zipcode..."> -->
             <span class="input-group-btn">
-              <button class="btn btn-default button-search" type="button">Go!</button>
+              <button class="btn btn-default button-search" type="button" id='search-zip'>Go!</button>
             </span>
           </div><!-- /input-group -->
-          <div class='row'>
+          <!-- <div class='row'>
               <button class='text-center col-xs-8 col-xs-offset-2 btn-info button-saved' id='test-saved'>Show saved weather events</button>
-            </div>
+            </div> -->
         </div><!-- /.col-lg-6 -->
       </div>
       <!-- ----------------------------------End `div` #div-search -->
-
     </div>
     <!-- ----------------------------------End `div` #div-weather-container -->
-
   </div>
   <!-- ----------------------------------End `div` .container-fluid -->
 

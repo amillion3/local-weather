@@ -5,7 +5,7 @@ const dom = require('./dom');
 const init = () => {
   events.bindEvents();
   apiKeys.retrieveKeys();
-  dom.randomBackgroundNonWeather();
+  dom.randomBackgroundLogin();
 };
 
 module.exports = {

@@ -26,11 +26,12 @@ const validateInput = () => {
   }
 };
 const searchWindowClicked = e => {
-  if (e.target.type === 'button') {
-    userInput = $('.form-control').val();
+  console.error(e);
+  if (e.target.id === 'search-zip') {
+    userInput = $('.zip').val();
     validateInput();
   } else if (e.charCode === 13) {
-    userInput = $('.form-control').val();
+    userInput = $('.zip').val();
     validateInput();
   }
 };
@@ -163,14 +164,67 @@ const scaryUpdateClicked = () => {
 };
 
 const authEvents = () => {
+  // switch to register form
   $('#register-link').click(() => {
     $('#div-auth-login').addClass('hide');
     $('#div-auth-register').removeClass('hide');
   });
-
+  // switch to login form
   $('#login-link').click(() => {
     $('#div-auth-login').removeClass('hide');
     $('#div-auth-register').addClass('hide');
+  });
+  // user signs in
+  $('#userLoginButton').click(e => {
+    e.preventDefault();
+    const email = $('#userEmail').val();
+    const password = $('#userPassword').val();
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => {
+        console.error('successful login');
+        $('#header-buttons').removeClass('hide');
+        $('#div-auth-login').addClass('hide');
+        $('#div-current-weather').removeClass('hide');
+        $('#div-search').removeClass('hide');
+      })
+      .catch(function (error) {
+        // Handle Errors here.
+        console.error(error.message);
+        // ...
+      });
+  });
+
+  // user registers
+  $('#userRegisterButton').click(e => {
+    e.preventDefault();
+    const email = $('#registerEmail').val();
+    const pass = $('#registerPassword').val();
+    firebase.auth().createUserWithEmailAndPassword(email, pass)
+      .then(() => {
+        alert('Registration Successful! Please log in now.');
+        $('#div-auth-login').removeClass('hide');
+      })
+      .catch((error) => {
+        console.error('error registering');
+        console.error(error.message);
+      });
+  });
+
+  $('#logout').click(() => {
+    firebase.auth().signOut().then(() => {
+    })
+      .then(() => {
+        console.error('user has logged out'); // to delete
+        $('#header-buttons').addClass('hide');
+        $('#div-auth-login').removeClass('hide');
+        $('#div-current-weather').addClass('hide');
+        $('#div-forecasted-weather').addClass('hide');
+        $('#div-dashboard').addClass('hide');
+      })
+      .catch((error) => {
+        // An error happened.
+        console.error(error);
+      });
   });
 };
 
