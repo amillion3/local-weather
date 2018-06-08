@@ -182,7 +182,7 @@ const authEvents = () => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
         console.error('successful login');
-        $('#logout').removeClass('hide');
+        $('#header-buttons').removeClass('hide');
         $('#div-auth-login').addClass('hide');
         $('#div-current-weather').removeClass('hide');
         $('#div-search').removeClass('hide');
@@ -214,7 +214,8 @@ const authEvents = () => {
     firebase.auth().signOut().then(() => {
     })
       .then(() => {
-        $('#logout').addClass('hide');
+        console.error('user has logged out'); // to delete
+        $('#header-buttons').addClass('hide');
         $('#div-auth-login').removeClass('hide');
         $('#div-current-weather').addClass('hide');
         $('#div-forecasted-weather').addClass('hide');

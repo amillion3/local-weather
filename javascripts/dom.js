@@ -27,6 +27,16 @@ const randomBackgroundNonWeather = () => {
   $('body').css('background-image', `url('../images/${images[randomCount]}'`);
 };
 
+const randomBackgroundLogin = () => {
+  const imageCount = 7;
+  const randomCount = Math.round(Math.random() * (imageCount - 1)) + 1;
+  const images = [];
+  for (let i = 0; i <= imageCount; i++) {
+    images.push(`login${i + 1}.jpg`);
+  }
+  $('body').css('background-image', `url('../images/${images[randomCount]}'`);
+};
+
 // Build CURRENT weather DOM string
 const buildCurrentWeatherMiniForecast = inputs => {
   const parsedData = parseForecastData(inputs.slice(1));
@@ -157,9 +167,10 @@ const buildForecastForInsertion = (inputs, city) => {
   <h4 class='weather-humidity'>${input.main.humidity}<i class="wi wi-humidity icon-humidity" alt='Humidity Percentage'></i></span></h4>
       </div>
       <div class='row'>
-        <h4 class='weather-wind'>${Math.floor(input.wind.speed, 0)}</h4>
-        <h4 class='inline'>mph </h4>
-        <span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span>
+        <h4 class='weather-wind inline'>${Math.floor(input.wind.speed, 0)}</h4>
+        <h6 class='inline'>mph </h6>
+        <span><i class="wi wi-strong-wind inline" id='icon-wind' alt='Wind speed'></i></span>
+
       </div>
       <div class='row weather-buttons'>
         <span class='glyphicon glyphicon-floppy-disk span-blue' aria-hidden="true"></span>
@@ -275,5 +286,6 @@ module.exports = {
   buildForecastDOM,
   buildDashboardDOM,
   printToDom,
+  randomBackgroundLogin,
   clearDivs,
 };

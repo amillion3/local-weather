@@ -36,7 +36,7 @@ const readExistingWeatherRecord = () => {
     const weatherEventsArray = [];
     $.ajax({
       method: 'GET',
-      url: `${firebaseConfig.databaseURL}/weather.json?orderBy="uid"&equalTo="${uid}`,
+      url: `${firebaseConfig.databaseURL}/weather.json?orderBy="uid"&equalTo="${uid}"`,
     })
       .done(fbResponseWeatherEvents => {
         if (fbResponseWeatherEvents !== null) {

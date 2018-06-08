@@ -113,3 +113,11 @@ header {
 .trash {
   font-size: 20px;
 }
+
+.weather-buttons {
+  margin-top: 8px;
+}
+
+button {
+  background: rgba(255, 255, 255, 0.7);
+}
