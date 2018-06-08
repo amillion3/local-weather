@@ -1,5 +1,6 @@
 const weatherAPI = require('./weatherAPI');
 const firebaseAPI = require('./firebaseAPI');
+const {checkLoginStatus,} = require('./auth');
 
 const apiKey = () => {
   // constructor for new Promise {}
@@ -21,7 +22,8 @@ const retrieveKeys = () => {
       weatherAPI.setKey(results.apiKeys.openWeatherMap.apiKey);
       firebaseAPI.setKey(results.firebaseKeys.apiKey);
       firebaseAPI.setFirebaseConfig(results.firebaseKeys);
-      firebase.initializeApp(results.firebase);
+      firebase.initializeApp(results.firebaseKeys);
+      checkLoginStatus();
     })
     .catch(error => {
       console.error(error);

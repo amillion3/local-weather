@@ -6,15 +6,16 @@ const setFirebaseConfig = a => {
   firebaseConfig = a;
 };
 
-const setUID = newUID => {
-  uid = newUID;
-  console.error(uid);
+const setUID = newUid => {
+  uid = newUid;
+  console.error('user ID', uid); // delete this
 };
 
-const getKey = input => firebaseAPIKey;
+const getKey = () => firebaseAPIKey;
 const setKey = input => { firebaseAPIKey = input; };
 
 const saveNewWeatherRecord = weatherEvent => {
+  weatherEvent.uid = uid;
   return new Promise((resolve, reject) => {
     $.ajax({
       method: 'POST',
@@ -35,7 +36,7 @@ const readExistingWeatherRecord = () => {
     const weatherEventsArray = [];
     $.ajax({
       method: 'GET',
-      url: `${firebaseConfig.databaseURL}/weather.json`,
+      url: `${firebaseConfig.databaseURL}/weather.json?orderBy="uid"&equalTo="${uid}`,
     })
       .done(fbResponseWeatherEvents => {
         if (fbResponseWeatherEvents !== null) {

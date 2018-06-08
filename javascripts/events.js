@@ -4,7 +4,6 @@ const firebaseAPI = require('./firebaseAPI');
 const dom = require('./dom');
 
 let userInput = '';
-const uid = '';
 
 // -------------------- Gather zipcode from user
 const alertErrorMessage = () => {
@@ -181,6 +180,13 @@ const authEvents = () => {
     const email = $('#userEmail').val();
     const password = $('#userPassword').val();
     firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => {
+        console.error('successful login');
+        $('#logout').removeClass('hide');
+        $('#div-auth-login').addClass('hide');
+        $('#div-current-weather').removeClass('hide');
+        $('#div-search').removeClass('hide');
+      })
       .catch(function (error) {
         // Handle Errors here.
         console.error(error.message);
@@ -188,35 +194,36 @@ const authEvents = () => {
       });
   });
 
-  $('#userLoginButton').click(e => {
-    e.preventDefault();
-    const userEmail = $('#userEmail').val();
-    const userPassword = $('#userPassword').val();
-    firebase.auth().signInWithEmailAndPassword(userEmail, userPassword)
-      .then(() => {
-        console.error(uid);
-      })
-      .catch(error => {
-        console.error('error signing in');
-        console.error(error.message);
-      });
-  });
   // user registers
   $('#userRegisterButton').click(e => {
     e.preventDefault();
     const email = $('#registerEmail').val();
     const pass = $('#registerPassword').val();
-    firebase.auth().createUserWithEmailAndPassword(email, pass).catch((error) => {
-      console.error('error registering');
-      console.error(error.message);
-    });
+    firebase.auth().createUserWithEmailAndPassword(email, pass)
+      .then(() => {
+        alert('Registration Successful! Please log in now.');
+        $('#div-auth-login').removeClass('hide');
+      })
+      .catch((error) => {
+        console.error('error registering');
+        console.error(error.message);
+      });
   });
+
   $('#logout').click(() => {
     firebase.auth().signOut().then(() => {
-    }).catch((error) => {
-      // An error happened.
-      console.error(error);
-    });
+    })
+      .then(() => {
+        $('#logout').addClass('hide');
+        $('#div-auth-login').removeClass('hide');
+        $('#div-current-weather').addClass('hide');
+        $('#div-forecasted-weather').addClass('hide');
+        $('#div-dashboard').addClass('hide');
+      })
+      .catch((error) => {
+        // An error happened.
+        console.error(error);
+      });
   });
 };
 

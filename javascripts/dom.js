@@ -55,7 +55,7 @@ const buildCurrentWeatherDOM = data => {
       <div class='div-weather-background'>
         <div class='row container-weather-current'>
           <div class='col-xs-3 text-center data-id' id='current-weather' data-id='${data.list[0].dt}'>
-            <h1 id='temp-current' class='text-center weather-current'>${Math.floor(data.list[0].main.temp)}</h1>
+            <h1 id='temp-current' class='text-center weather-current'>${Math.floor(data.list[0].main.temp)}°</h1>
             <h3 class='text-center weather-conditions'>${data.list[0].weather[0].main}</h3>
             <span><i class="wi ${icon.icon}" id='icon-current' alt='${data.list[0].weather[0].main}'></i></span>
             <h4 class='text-center'>Today</h4>
@@ -150,17 +150,19 @@ const buildForecastForInsertion = (inputs, city) => {
       <div class='row'>
         <h4 class='weather-max inline'>${Math.floor(input.main.temp_max, 0)}</h4>
         <h4 class='inline'>°/</h4>
-        <h4 class='weather-min inline'>${Math.floor(input.main.temp_min, 0)}°</h4>
+        <h4 class='weather-min inline'>${Math.floor(input.main.temp_min, 0)}</h4>
+        <h4 class='inline'>°</h4>
       </div>
       <div class='row'>
   <h4 class='weather-humidity'>${input.main.humidity}<i class="wi wi-humidity icon-humidity" alt='Humidity Percentage'></i></span></h4>
       </div>
       <div class='row'>
-  <h4 class='weather-wind'>${Math.floor(input.wind.speed, 0)}<span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span></h4>
+        <h4 class='weather-wind'>${Math.floor(input.wind.speed, 0)}</h4>
+        <h4 class='inline'>mph </h4>
+        <span><i class="wi wi-strong-wind" id='icon-wind' alt='Wind speed'></i></span>
       </div>
       <div class='row weather-buttons'>
         <span class='glyphicon glyphicon-floppy-disk span-blue' aria-hidden="true"></span>
-        <span class='glyphicon glyphicon-exclamation-sign span-red' aria-hidden="true"></span>
       </div>
     </div>
     `;
