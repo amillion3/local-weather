@@ -6,6 +6,34 @@ const clearDivs = () => {
   printToDom('', '#div-dashboard');
 };
 
+const alertMessages = input => {
+  let output = '';
+  let messageType = '';
+  let messageText = '';
+  if (input === 'zip') {
+    messageType = 'danger';
+    messageText = 'Please enter a valid, 5-digit zipcode.';
+    $('#alerts').fadeIn();
+  } else if (input === 'weather-save') {
+    messageType = 'success';
+    messageText = 'Weather event saved successfully.';
+    $('#alerts').fadeIn(1000);
+    $('#alerts').fadeOut(6000);
+  } else if (input === 'register') {
+    messageType = 'info';
+    messageText = 'Registration successful! Please log in now.';
+    $('#alerts').fadeIn(1000);
+    $('#alerts').fadeOut(6000);
+  }
+  output = `
+    <div class="alert alert-${messageType} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      ${messageText}
+    </div>
+  `;
+  printToDom(output, '#alerts');
+};
+// Random background functions
 const randomBackground = input => {
   input.toLowerCase();
   const imageCount = 2;
@@ -16,7 +44,6 @@ const randomBackground = input => {
   images.push(`${input}3.jpg`);
   $('body').css('background-image', `url('../images/${images[randomCount]}'`);
 };
-
 const randomBackgroundNonWeather = () => {
   const imageCount = 7;
   const randomCount = Math.round(Math.random() * (imageCount - 1)) + 1;
@@ -26,7 +53,6 @@ const randomBackgroundNonWeather = () => {
   }
   $('body').css('background-image', `url('../images/${images[randomCount]}'`);
 };
-
 const randomBackgroundLogin = () => {
   const imageCount = 7;
   const randomCount = Math.round(Math.random() * (imageCount - 1)) + 1;
@@ -36,6 +62,7 @@ const randomBackgroundLogin = () => {
   }
   $('body').css('background-image', `url('../images/${images[randomCount]}'`);
 };
+// end Random background functions
 
 // Build CURRENT weather DOM string
 const buildCurrentWeatherMiniForecast = inputs => {
@@ -141,7 +168,6 @@ const parseDate = input => {
 const buildForecastForInsertion = (inputs, city) => {
   let output = '';
   inputs.forEach(input => {
-    console.error('input', input);
     const date = parseDate(input.dt_txt);
     const iconCode = input.weather[0].icon;
     const icon = domIcons.findWeatherIcon(iconCode);
@@ -288,4 +314,5 @@ module.exports = {
   printToDom,
   randomBackgroundLogin,
   clearDivs,
+  alertMessages,
 };

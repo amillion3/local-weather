@@ -6,19 +6,12 @@ const dom = require('./dom');
 let userInput = '';
 
 // -------------------- Gather zipcode from user
-const alertErrorMessage = () => {
-  alert('Please enter a valid, 5-digit zipcode.');
-  // TO DO SNACKBAR
-  // https://codepen.io/Muhammad_Adil93/pen/rLaLqB
-  // <div id='snackbar'>
 
-  // </div>
-};
 const validateInput = () => {
   if (userInput.length < 5 || userInput.length > 5) {
-    alertErrorMessage();
+    dom.alertMessages('zip');
   } else if (userInput.match(/[^\d]/)) {
-    alertErrorMessage();
+    dom.alertMessages('zip');
   } else {
     dataGatekeeper.setZipcode(userInput);
     // begin promise here
@@ -47,10 +40,6 @@ const forecastWeatherToggle = e => {
   }
 };
 
-const successWeatherAdd = () => {
-  alert('This forecast has been saved.');
-};
-
 const saveButtonClicked = () => {
   $(document).on('click', '.glyphicon-floppy-disk', e => {
     // DOM is cleared, not the action I want
@@ -67,8 +56,7 @@ const saveButtonClicked = () => {
     };
     firebaseAPI.saveNewWeatherRecord(weatherEventToAdd)
       .then(() => {
-        // weatherEventToAddCard.remove();
-        successWeatherAdd();
+        dom.alertMessages('weather-save');
       })
       .catch(err => {
         console.error('Error saving weather record', err);
@@ -198,7 +186,7 @@ const authEvents = () => {
     const pass = $('#registerPassword').val();
     firebase.auth().createUserWithEmailAndPassword(email, pass)
       .then(() => {
-        alert('Registration Successful! Please log in now.');
+        dom.alertMessages('register');
         $('#div-auth-login').removeClass('hide');
         $('#div-auth-register').addClass('hide');
       })
