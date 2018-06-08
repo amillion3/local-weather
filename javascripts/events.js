@@ -26,7 +26,6 @@ const validateInput = () => {
   }
 };
 const searchWindowClicked = e => {
-  console.error(e);
   if (e.target.id === 'search-zip') {
     userInput = $('.zip').val();
     validateInput();
@@ -56,7 +55,6 @@ const saveButtonClicked = () => {
   $(document).on('click', '.glyphicon-floppy-disk', e => {
     // DOM is cleared, not the action I want
     const weatherEventToAddCard = $(e.target).closest('.forecast');
-    console.error('WEATHER CARD', weatherEventToAddCard);
     const weatherEventToAdd = {
       dtText: weatherEventToAddCard.find('.weather-date').text(),
       city: weatherEventToAddCard.find('.weather-city').text(),
@@ -67,7 +65,6 @@ const saveButtonClicked = () => {
       windSpeed: weatherEventToAddCard.find('.weather-wind').text(),
       isScarry: false,
     };
-    console.error('weatherEventToAdd:', weatherEventToAdd);
     firebaseAPI.saveNewWeatherRecord(weatherEventToAdd)
       .then(() => {
         // weatherEventToAddCard.remove();
@@ -184,13 +181,13 @@ const authEvents = () => {
         console.error('successful login');
         $('#header-buttons').removeClass('hide');
         $('#div-auth-login').addClass('hide');
+        $('#div-auth-register').addClass('hide');
         $('#div-current-weather').removeClass('hide');
         $('#div-search').removeClass('hide');
       })
       .catch(function (error) {
         // Handle Errors here.
         console.error(error.message);
-        // ...
       });
   });
 
@@ -203,6 +200,7 @@ const authEvents = () => {
       .then(() => {
         alert('Registration Successful! Please log in now.');
         $('#div-auth-login').removeClass('hide');
+        $('#div-auth-register').addClass('hide');
       })
       .catch((error) => {
         console.error('error registering');
