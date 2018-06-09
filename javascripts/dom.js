@@ -262,8 +262,9 @@ const buildDashboardRows = data => {
       <td class='tempLow'>${row.tempLow}°</td>
       <td class='humidity'>${row.humidity}%</td>
       <td class='wind'>${row.windSpeed} mph</td>
-      <td class='scary'>
-        ${row.isScarry} <span class='glyphicon glyphicon-transfer span-red scary' aria-hidden="true"></span>
+      <td class='scary inline' data-scary=${row.isScarry}>
+        ${row.isScarry}
+        <span class='glyphicon glyphicon-transfer span-red scary inline' aria-hidden="true"></span>
       </td>
       <td class='text-center'>
         <span class='glyphicon glyphicon-trash span-red trash' aria-hidden="true"></span>
