@@ -94,20 +94,24 @@ const dashboardViewClicked = () => {
   });
 };
 
-const switchScary = input => {
-  let output = '';
-  console.error('before switch', input);
-  console.error('typeof', typeof(input));
-  if (input === 'true' || input === true) {
-    output = false;
-    console.error('TO TRUE', output);
-  } else {
-    output = true;
-    console.error(input);
-    console.error('ELSE', output);
-  }
-  return output;
+const updateDashboardRow = (e, input) => {
+  $(e.target).closest('td').html('').html(`1${JSON.stringify(input.isScarry)} <span class='glyphicon glyphicon-transfer span-red scary' aria-hidden="true"></span>`);
 };
+
+// const switchScary = input => {
+//   let output = '';
+//   console.error('before switch', input);
+//   console.error('typeof', typeof(input));
+//   if (input === 'true' || input === true) {
+//     output = false;
+//     console.error('TO TRUE', output);
+//   } else {
+//     output = true;
+//     console.error(input);
+//     console.error('ELSE', output);
+//   }
+//   return output;
+// };
 
 const scaryUpdateClicked = () => {
   $(document).on('click', '.glyphicon-transfer', e => {
@@ -117,13 +121,18 @@ const scaryUpdateClicked = () => {
     let tempLow = weatherEventElement.find('.tempLow').text();
     let humidity = weatherEventElement.find('.humidity').text();
     let windSpeed = weatherEventElement.find('.wind').text();
-    let scary = weatherEventElement.find('.scary').text();
+    let scary = Boolean(weatherEventElement.find('.scary').text());
+    console.error('prescary', scary);
+    console.error(typeof(scary));
     // remove non-numeric and switch scary
     tempHigh = tempHigh.replace(/\D/g,'');
     tempLow = tempLow.replace(/\D/g,'');
     humidity = humidity.replace(/\D/g,'');
     windSpeed = windSpeed.replace(/\D/g,'');
-    scary = switchScary(scary);
+    scary = !scary;
+    console.error('POST scary', scary);
+    // console.error(switchScary());
+    // scary = switchScary(scary);
 
     const updatedObject = {
       'dtText': weatherEventElement.find('.date').text(),
@@ -140,7 +149,7 @@ const scaryUpdateClicked = () => {
       .then(() => {
         // reprint/update DOM from firebase
         console.error('updatedObject .then()');
-        dashboardViewClicked();
+        updateDashboardRow(e, updatedObject);
       })
       .catch(err => {
         console.error('Error updating database record', err);
