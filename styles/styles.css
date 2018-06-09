@@ -121,3 +121,7 @@ header {
 button {
   background: rgba(255, 255, 255, 0.7);
 }
+
+#alerts {
+  margin: 10px 100px 10px 100px;
+}
