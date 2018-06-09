@@ -67,16 +67,17 @@ const deleteWeatherRecord = itemToDelete => {
 };
 
 const updateExistingWeatherRecord = (weatherObj, firebaseId) => {
+  weatherObj.uid = uid;
   return new Promise((resolve, reject) => {
     $.ajax({
       method: 'PUT',
       url: `${firebaseConfig.databaseURL}/weather/${firebaseId}.json`,
       data: JSON.stringify(weatherObj),
     })
-      .then(updatedObjFromFirebase => {
+      .done(updatedObjFromFirebase => {
         resolve(updatedObjFromFirebase);
       })
-      .catch(err => {
+      .fail(err => {
         reject(err);
       });
   });

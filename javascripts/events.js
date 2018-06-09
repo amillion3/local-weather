@@ -42,8 +42,8 @@ const forecastWeatherToggle = e => {
 
 const saveButtonClicked = () => {
   $(document).on('click', '.glyphicon-floppy-disk', e => {
-    // DOM is cleared, not the action I want
     const weatherEventToAddCard = $(e.target).closest('.forecast');
+    $(e.target).closest('.weather-buttons').fadeOut(1000);
     const weatherEventToAdd = {
       dtText: weatherEventToAddCard.find('.weather-date').text(),
       city: weatherEventToAddCard.find('.weather-city').text(),
@@ -95,18 +95,7 @@ const dashboardViewClicked = () => {
 };
 
 const switchScary = input => {
-  let output = '';
-  console.error('before switch', input);
-  console.error('typeof', typeof(input));
-  if (input === 'true' || input === true) {
-    output = false;
-    console.error('TO TRUE', output);
-  } else {
-    output = true;
-    console.error(input);
-    console.error('ELSE', output);
-  }
-  return output;
+  return !input;
 };
 
 const scaryUpdateClicked = () => {
@@ -117,13 +106,13 @@ const scaryUpdateClicked = () => {
     let tempLow = weatherEventElement.find('.tempLow').text();
     let humidity = weatherEventElement.find('.humidity').text();
     let windSpeed = weatherEventElement.find('.wind').text();
-    let scary = weatherEventElement.find('.scary').text();
+    const scary = weatherEventElement.find('.scary').data('scary');
     // remove non-numeric and switch scary
     tempHigh = tempHigh.replace(/\D/g,'');
     tempLow = tempLow.replace(/\D/g,'');
     humidity = humidity.replace(/\D/g,'');
     windSpeed = windSpeed.replace(/\D/g,'');
-    scary = switchScary(scary);
+    const updatedScary = switchScary(scary);
 
     const updatedObject = {
       'dtText': weatherEventElement.find('.date').text(),
@@ -133,14 +122,15 @@ const scaryUpdateClicked = () => {
       'tempLow': tempLow,
       'humidity': humidity,
       'windSpeed': windSpeed,
-      'isScarry': scary,
+      isScarry: updatedScary,
     };
-    console.error('updatedobject  ', updatedObject);
+
     firebaseAPI.updateExistingWeatherRecord(updatedObject, firebaseId)
       .then(() => {
         // reprint/update DOM from firebase
-        console.error('updatedObject .then()');
-        dashboardViewClicked();
+        console.error('success');
+        console.error('updatedobject  ', updatedObject.isScarry);
+        $('#test-saved').click();
       })
       .catch(err => {
         console.error('Error updating database record', err);
@@ -203,9 +193,11 @@ const authEvents = () => {
         console.error('user has logged out'); // to delete
         $('#header-buttons').addClass('hide');
         $('#div-auth-login').removeClass('hide');
+        $('#div-auth-register').addClass('hide');
         $('#div-current-weather').addClass('hide');
         $('#div-forecasted-weather').addClass('hide');
         $('#div-dashboard').addClass('hide');
+        $('#div-search').addClass('hide');
       })
       .catch((error) => {
         // An error happened.
