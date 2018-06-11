@@ -21,7 +21,7 @@ const processAPIResponse = () => {
 };
 
 const buildApiUrl = () => {
-  apiUrl = `http://api.openweathermap.org/data/2.5/forecast?zip=${zip}&units=imperial&appid=${key}`;
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?zip=${zip}&units=imperial&appid=${key}`;
 };
 
 const makeAPIRequest = () => {

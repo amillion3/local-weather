@@ -4,3 +4,4 @@ dist/app.js
 db/apiKeys.json
 font
 css
+build/
