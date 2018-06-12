@@ -8,7 +8,6 @@ const setFirebaseConfig = a => {
 
 const setUID = newUid => {
   uid = newUid;
-  console.error('user ID', uid); // delete this
 };
 
 const getKey = () => firebaseAPIKey;

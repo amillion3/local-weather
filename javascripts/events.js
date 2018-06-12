@@ -128,8 +128,6 @@ const scaryUpdateClicked = () => {
     firebaseAPI.updateExistingWeatherRecord(updatedObject, firebaseId)
       .then(() => {
         // reprint/update DOM from firebase
-        console.error('success');
-        console.error('updatedobject  ', updatedObject.isScarry);
         $('#test-saved').click();
       })
       .catch(err => {
@@ -156,7 +154,6 @@ const authEvents = () => {
     const password = $('#userPassword').val();
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
-        console.error('successful login');
         $('#header-buttons').removeClass('hide');
         $('#div-auth-login').addClass('hide');
         $('#div-auth-register').addClass('hide');
@@ -181,8 +178,7 @@ const authEvents = () => {
         $('#div-auth-register').addClass('hide');
       })
       .catch((error) => {
-        console.error('error registering');
-        console.error(error.message);
+        console.error('error registering', error.message);
       });
   });
 
@@ -190,7 +186,6 @@ const authEvents = () => {
     firebase.auth().signOut().then(() => {
     })
       .then(() => {
-        console.error('user has logged out'); // to delete
         $('#header-buttons').addClass('hide');
         $('#div-auth-login').removeClass('hide');
         $('#div-auth-register').addClass('hide');

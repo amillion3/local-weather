@@ -42,7 +42,7 @@ const randomBackground = input => {
   images.push(`${input}1.jpg`);
   images.push(`${input}2.jpg`);
   images.push(`${input}3.jpg`);
-  $('body').css('background-image', `url('../images/${images[randomCount]}'`);
+  $('body').css('background-image', `url('https://www.andymillion.com/local-weather/images/${images[randomCount]}'`);
 };
 const randomBackgroundNonWeather = () => {
   const imageCount = 7;
@@ -51,7 +51,7 @@ const randomBackgroundNonWeather = () => {
   for (let i = 0; i <= imageCount; i++) {
     images.push(`none${i + 1}.jpg`);
   }
-  $('body').css('background-image', `url('../images/${images[randomCount]}'`);
+  $('body').css('background-image', `url('https://www.andymillion.com/local-weather/images/${images[randomCount]}'`);
 };
 const randomBackgroundLogin = () => {
   const imageCount = 7;
@@ -60,7 +60,7 @@ const randomBackgroundLogin = () => {
   for (let i = 0; i <= imageCount; i++) {
     images.push(`login${i + 1}.jpg`);
   }
-  $('body').css('background-image', `url('../images/${images[randomCount]}'`);
+  $('body').css('background-image', `url('https://www.andymillion.com/local-weather/images/${images[randomCount]}'`);
 };
 // end Random background functions
 
